@@ -3,9 +3,7 @@ on:
   push:
     paths:
       - '.github/workflows/ansible.yml'
-      - 'valheim-ansible/game-role/**'
-      - 'valheim-ansible/playbook.yml'
-      - 'valheim-ansible/requirements.yml'
+      - 'yourbtc-ansible/**'
 
 jobs:
   build:

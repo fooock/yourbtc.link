@@ -1,4 +1,6 @@
 - name: The yourbtc.link installer
+  hosts: all
+
   pre_tasks:
     # Always update the base system
     - name: Update system
