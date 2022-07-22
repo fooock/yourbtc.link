@@ -1,0 +1,29 @@
+---
+on:
+  push:
+    paths:
+      - '.github/workflows/ansible.yml'
+      - 'valheim-ansible/game-role/**'
+      - 'valheim-ansible/playbook.yml'
+      - 'valheim-ansible/requirements.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [ 3.9 ]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check Ansible role syntax
+        uses: dawidd6/action-ansible-playbook@v2.5.0
+        with:
+          playbook: playbook.yml
+          directory: ./yourbtc-ansible
+          inventory: |
+            [all]
+            localhost
+          options: |
+            --syntax-check
