@@ -8,9 +8,9 @@
     bitcoin_arch: x86_64-linux-gnu
 
   tasks:
-    - name: "Retrieve information from /var/lib/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}"
+    - name: "Retrieve information from /usr/local/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}"
       stat:
-        path: "/var/lib/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}"
+        path: "/usr/local/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}"
       register: bitcoin_directory
 
     - name: "Test that Bitcoin Core v{{ bitcoin_version }} directory was created correctly"

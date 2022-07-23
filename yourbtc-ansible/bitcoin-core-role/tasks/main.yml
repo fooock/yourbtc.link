@@ -5,15 +5,14 @@
     dest: /tmp/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz
     checksum: sha256:https://bitcoincore.org/bin/bitcoin-core-{{ bitcoin_version }}/SHA256SUMS
     http_agent: yourbtc-ansible
-    timeout: 30
 
-- name: "Ensure /var/lib/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }} directory exists"
+- name: "Ensure /usr/local/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }} directory exists"
   file:
-    path: /var/lib/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}
+    path: /usr/local/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}
     state: directory
 
-- name: "Unpacks bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz into /var/lib/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}"
+- name: "Unpacks bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz into /usr/local/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}"
   ansible.builtin.unarchive:
     src: "/tmp/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz"
-    dest: "/var/lib/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}"
+    dest: "/usr/local/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}"
     remote_src: yes
