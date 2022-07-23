@@ -1,6 +1,11 @@
 ---
+# Bitcoin user management
 bitcoin_user: bitcoin
 bitcoin_group: bitcoin
 
+# Bitcoin binary information
 bitcoin_version: 23.0
 bitcoin_arch: x86_64-linux-gnu
+
+# Bitcoin node configuration
+bitcoin_data_dir: /data/bitcoin

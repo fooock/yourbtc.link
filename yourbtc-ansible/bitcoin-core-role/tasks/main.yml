@@ -11,19 +11,19 @@
     state: present
     password: "*"
 
-- name: "Download Bitcoin Core v{{ bitcoin_version }} into /tmp/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz"
+- name: "Download Bitcoin Core v{{ bitcoin_version }} into '/tmp/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz'"
   ansible.builtin.get_url:
     url: https://bitcoincore.org/bin/bitcoin-core-{{ bitcoin_version }}/bitcoin-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz
     dest: /tmp/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz
     checksum: sha256:https://bitcoincore.org/bin/bitcoin-core-{{ bitcoin_version }}/SHA256SUMS
     http_agent: yourbtc-ansible
 
-- name: "Ensure /usr/local/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }} directory exists"
+- name: "Ensure '/usr/local/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}' directory exists"
   file:
     path: /usr/local/bitcoin-core-{{ bitcoin_version }}
     state: directory
 
-- name: "Unpacks bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz into /usr/local/bitcoin-core-{{ bitcoin_version }}"
+- name: "Unpack 'bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz' into '/usr/local/bitcoin-core-{{ bitcoin_version }}'"
   ansible.builtin.unarchive:
     src: /tmp/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz
     dest: /usr/local/bitcoin-core-{{ bitcoin_version }}
@@ -32,3 +32,18 @@
     group: "{{ bitcoin_group }}"
     extra_opts:
       - --strip-components=1
+
+- name: "Ensure Bitcoin data directory '{{ bitcoin_data_dir }}' exists"
+  file:
+    path: "{{ bitcoin_data_dir }}"
+    state: directory
+    owner: "{{ bitcoin_user }}"
+    group: "{{ bitcoin_group }}"
+
+- name: "Ensure symbolic link from '{{ bitcoin_data_dir }}' to '/home/{{ bitcoin_user }}/.bitcoin' exists"
+  file:
+    src: "{{ bitcoin_data_dir }}"
+    dest: /home/{{ bitcoin_user }}/.bitcoin
+    state: link
+  become_user: "{{ bitcoin_user }}"
+  become: true
