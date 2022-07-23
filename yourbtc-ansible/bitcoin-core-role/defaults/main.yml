@@ -1,3 +1,6 @@
 ---
+bitcoin_user: bitcoin
+bitcoin_group: bitcoin
+
 bitcoin_version: 23.0
 bitcoin_arch: x86_64-linux-gnu

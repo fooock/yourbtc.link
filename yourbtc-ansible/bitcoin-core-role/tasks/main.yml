@@ -1,18 +1,34 @@
 ---
+- name: "Ensure group '{{ bitcoin_group }}' exists"
+  ansible.builtin.group:
+    name: "{{ bitcoin_group }}"
+    state: present
+
+- name: "Ensure user '{{ bitcoin_user }}' with a primary group of '{{ bitcoin_group }}' exists"
+  ansible.builtin.user:
+    name: "{{ bitcoin_user }}"
+    group: "{{ bitcoin_group }}"
+    state: present
+    password: "*"
+
 - name: "Download Bitcoin Core v{{ bitcoin_version }} into /tmp/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz"
   ansible.builtin.get_url:
-    url: "https://bitcoincore.org/bin/bitcoin-core-{{ bitcoin_version }}/bitcoin-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz"
+    url: https://bitcoincore.org/bin/bitcoin-core-{{ bitcoin_version }}/bitcoin-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz
     dest: /tmp/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz
     checksum: sha256:https://bitcoincore.org/bin/bitcoin-core-{{ bitcoin_version }}/SHA256SUMS
     http_agent: yourbtc-ansible
 
 - name: "Ensure /usr/local/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }} directory exists"
   file:
-    path: /usr/local/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}
+    path: /usr/local/bitcoin-core-{{ bitcoin_version }}
     state: directory
 
-- name: "Unpacks bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz into /usr/local/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}"
+- name: "Unpacks bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz into /usr/local/bitcoin-core-{{ bitcoin_version }}"
   ansible.builtin.unarchive:
-    src: "/tmp/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz"
-    dest: "/usr/local/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}"
+    src: /tmp/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz
+    dest: /usr/local/bitcoin-core-{{ bitcoin_version }}
     remote_src: yes
+    owner: "{{ bitcoin_user }}"
+    group: "{{ bitcoin_group }}"
+    extra_opts:
+      - --strip-components=1
