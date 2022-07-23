@@ -2,7 +2,6 @@
   hosts: all
 
   pre_tasks:
-    # Always update the base system
     - name: Update system
       apt:
         update_cache: yes
@@ -13,6 +12,6 @@
   tasks:
     - name: Install Bitcoin Core client
       import_role:
-        name: bitcoin-role
+        name: bitcoin-core-role
       tags:
         - bitcoin
