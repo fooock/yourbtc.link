@@ -1,0 +1,20 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+
+  vars:
+    bitcoin_version: 23.0
+    bitcoin_arch: x86_64-linux-gnu
+
+  tasks:
+    - name: "Retrieve information from /var/lib/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}"
+      stat:
+        path: "/var/lib/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}"
+      register: bitcoin_directory
+
+    - name: "Test that Bitcoin Core v{{ bitcoin_version }} directory was created correctly"
+      assert:
+        that:
+          - bitcoin_directory.stat.exists
+          - bitcoin_directory.stat.isdir

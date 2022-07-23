@@ -3,6 +3,9 @@ galaxy_info:
   description: Install Bitcoin Core client as a SystemD service
   company: yourbtc.link
 
+  role_name: bitcoin_core
+  namespace: yourbtc
+
   # Valid license ID from https://spdx.org
   license: MIT
 

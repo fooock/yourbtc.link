@@ -12,6 +12,8 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: [ 3.9 ]
+        projects:
+          - bitcoin-role
 
     steps:
       - uses: actions/checkout@v2
@@ -25,3 +27,23 @@ jobs:
             localhost
           options: |
             --syntax-check
+
+      - uses: docker-practice/actions-setup-docker@master
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies for project ${{ matrix.project }}
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r yourbtc-ansible/${{ matrix.project }}/molecule/requirements.txt
+        with:
+          project: ${{ matrix.projects }}
+
+      - name: Test with molecule project ${{ matrix.project }}
+        run: |
+          cd yourbtc-ansible/${{ matrix.project }}
+          molecule test
+        with:
+          project: ${{ matrix.projects }}
