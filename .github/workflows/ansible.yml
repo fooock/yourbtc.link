@@ -6,17 +6,11 @@ on:
       - 'yourbtc-ansible/**'
 
 jobs:
-  build:
-    runs-on: ubuntu-20.04
-    strategy:
-      max-parallel: 4
-      matrix:
-        python-version: [ 3.8 ]
-        project: [ bitcoin-role ]
 
+  check:
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
-
       - name: Check Ansible role syntax
         uses: dawidd6/action-ansible-playbook@v2.5.0
         with:
@@ -28,7 +22,17 @@ jobs:
           options: |
             --syntax-check
 
+  molecule:
+    runs-on: ubuntu-22.04
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [ 3.8 ]
+        project: [ bitcoin-role ]
+    steps:
+      - uses: actions/checkout@v2
       - uses: docker-practice/actions-setup-docker@master
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
@@ -36,8 +40,7 @@ jobs:
 
       - name: Install dependencies for project
         run: |
-          pip3 install --upgrade pip
-          pip3 install -r yourbtc-ansible/${{ matrix.project }}/molecule/requirements.txt
+          pip3 install install ansible molecule[lint] molecule-docker
 
       - name: Test with molecule
         run: |
