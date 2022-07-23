@@ -33,17 +33,14 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+          project: ${{ matrix.projects }}
 
       - name: Install dependencies for project ${{ matrix.project }}
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install -r yourbtc-ansible/${{ matrix.project }}/molecule/requirements.txt
-        with:
-          project: ${{ matrix.projects }}
 
       - name: Test with molecule project ${{ matrix.project }}
         run: |
           cd yourbtc-ansible/${{ matrix.project }}
           molecule test
-        with:
-          project: ${{ matrix.projects }}
