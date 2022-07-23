@@ -36,10 +36,10 @@ jobs:
 
       - name: Install dependencies for project
         run: |
-          pip install --upgrade pip
-          pip install -r yourbtc-ansible/${{ matrix.project }}/molecule/requirements.txt
+          pip3 install --upgrade pip
+          pip3 install -r yourbtc-ansible/${{ matrix.project }}/molecule/requirements.txt
 
-      - name: Test with molecule project
+      - name: Test with molecule
         run: |
           cd yourbtc-ansible/${{ matrix.project }}
           molecule test
