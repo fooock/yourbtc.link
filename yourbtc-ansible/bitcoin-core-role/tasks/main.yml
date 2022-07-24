@@ -67,3 +67,7 @@
     daemon_reload: yes
     enabled: true
     state: started
+  tags:
+    # This is to avoid trying to execute this test by Molecule
+    # when using the docker driver since it doesn't use systemd
+    - notest

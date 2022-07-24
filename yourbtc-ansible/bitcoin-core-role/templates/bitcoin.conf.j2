@@ -1,4 +1,7 @@
-
-daemon=1
 pid=/run/bitcoind/{{ bitcoin_network }}/bitcoind.pid
 datadir={{ bitcoin_data_dir }}/bitcoind-{{ bitcoin_network }}
+
+daemon=1
+server=1
+bind=127.0.0.1
+chain={{ bitcoin_network }}
