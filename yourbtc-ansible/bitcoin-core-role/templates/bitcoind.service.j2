@@ -20,11 +20,8 @@ RuntimeDirectoryMode=0710
 ConfigurationDirectory=bitcoin/bitcoind-{{ bitcoin_network }}
 ConfigurationDirectoryMode=0710
 
-# Bitcoin state {{ bitcoin_data_dir }}/bitcoind-{{ bitcoin_network }}
-StateDirectory={{ bitcoin_data_dir }}/bitcoind-{{ bitcoin_network }}
-StateDirectoryMode=0710
-
 Restart=on-failure
+RestartSec=30
 User={{ bitcoin_user }}
 Group={{ bitcoin_group }}
 
