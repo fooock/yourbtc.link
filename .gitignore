@@ -1,2 +1,3 @@
 .idea
 yourbtc-ansible/venv
+yourbtc-ansible/*/molecule/*/venv

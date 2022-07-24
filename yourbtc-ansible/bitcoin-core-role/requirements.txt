@@ -1,0 +1,11 @@
+argcomplete
+docker
+flake8
+jmespath
+molecule
+molecule-docker
+molecule-vagrant
+netaddr
+openshift
+python-vagrant
+yamllint
