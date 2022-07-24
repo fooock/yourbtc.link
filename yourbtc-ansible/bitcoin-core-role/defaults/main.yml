@@ -9,3 +9,4 @@ bitcoin_arch: x86_64-linux-gnu
 
 # Bitcoin node configuration
 bitcoin_data_dir: /data/bitcoin
+bitcoin_network: main

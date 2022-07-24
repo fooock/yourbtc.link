@@ -1,6 +1,7 @@
 ---
 - name: Converge
   hosts: all
-
+  vars:
+    bitcoin_network: regtest
   roles:
     - yourbtc.bitcoin_core

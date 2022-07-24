@@ -6,10 +6,7 @@
   vars:
     bitcoin_user: bitcoin
     bitcoin_group: bitcoin
-
-    # Binary information
     bitcoin_version: 23.0
-    bitcoin_arch: x86_64-linux-gnu
 
   tasks:
     - name: "Retrieve information from /usr/local/bitcoin-core-{{ bitcoin_version }}"

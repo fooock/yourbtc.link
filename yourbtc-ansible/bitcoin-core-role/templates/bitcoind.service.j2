@@ -1,0 +1,20 @@
+
+[Unit]
+Description=Bitcoin Core daemon for network {{ bitcoin_network }}
+Documentation=https://github.com/fooock/yourbtc.link
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/local/bitcoin-core-{{ bitcoin_version }}/bin/bitcoind -conf=/home/{{ bitcoin_user }}/.bitcoin/bitcoind-{{ bitcoin_network }}/bitcoin.conf
+
+# It is recommended to use this field if service Type is set to forking,
+# so that systemd can reliably identify the main process of the service.
+PIDFile=/run/bitcoind/{{ bitcoin_network }}/bitcoind.pid
+
+Restart=on-failure
+User={{ bitcoin_user }}
+Group={{ bitcoin_group }}
+
+[Install]
+WantedBy=multi-user.target
