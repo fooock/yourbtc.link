@@ -1,0 +1,8 @@
+---
+# LND user management
+lnd_user: lnd
+lnd_group: lnd
+
+# LND binary information
+lnd_version: 0.15.0-beta
+lnd_arch: linux-amd64

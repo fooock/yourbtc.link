@@ -16,3 +16,9 @@
         name: bitcoin-core-role
       tags:
         - bitcoin
+
+    - name: Install Lighting Network Daemon
+      import_role:
+        name: lnd-role
+      tags:
+        - lnd
