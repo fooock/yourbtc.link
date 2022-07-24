@@ -32,3 +32,42 @@
     group: "{{ lnd_group }}"
     extra_opts:
       - --strip-components=1
+
+- name: "Ensure LND data directory '{{ lnd_data_dir }}' exists"
+  file:
+    path: "{{ lnd_data_dir }}"
+    state: directory
+    owner: "{{ lnd_user }}"
+    group: "{{ lnd_group }}"
+    mode: 'u=rwx,g=rx,o='
+
+- name: "Copy LND systemd file in '/lib/systemd/system/lnd-{{ lnd_network }}.service'"
+  ansible.builtin.template:
+    src: lnd.service.j2
+    dest: /lib/systemd/system/lnd-{{ lnd_network }}.service
+
+- name: "Ensure LND configuration directory '/etc/lnd/{{ lnd_network }}' exists"
+  file:
+    path: /etc/lnd/{{ lnd_network }}
+    state: directory
+    owner: "{{ lnd_user }}"
+    group: "{{ lnd_group }}"
+    mode: 0710
+
+- name: "Copy lnd.conf file into '/etc/lnd/{{ lnd_network }}'"
+  ansible.builtin.template:
+    src: lnd.conf.j2
+    dest: /etc/lnd/{{ lnd_network }}/lnd.conf
+  become_user: "{{ lnd_user }}"
+  become: true
+
+- name: "Ensure 'lnd-{{ lnd_network }}.service' systemd unit is enabled and started"
+  ansible.builtin.systemd:
+    name: lnd-{{ lnd_network }}.service
+    daemon_reload: yes
+    enabled: true
+    state: started
+  tags:
+    # This is to avoid trying to execute this test by Molecule
+    # when using the docker driver since it doesn't use systemd
+    - notest
