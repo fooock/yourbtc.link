@@ -4,6 +4,7 @@ on:
     paths:
       - '.github/workflows/ansible.yml'
       - 'yourbtc-ansible/**'
+      - '!yourbtc-ansible/**/README.md'
 
 jobs:
 
