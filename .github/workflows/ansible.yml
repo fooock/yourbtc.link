@@ -9,7 +9,7 @@ on:
 jobs:
 
   check:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Check Ansible role syntax
@@ -24,7 +24,7 @@ jobs:
             --syntax-check
 
   molecule:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
       matrix:
@@ -41,7 +41,7 @@ jobs:
 
       - name: Install dependencies for project
         run: |
-          pip3 install install ansible molecule-docker
+          pip3 install ansible molecule[docker] docker
 
       - name: Test with molecule
         run: |
