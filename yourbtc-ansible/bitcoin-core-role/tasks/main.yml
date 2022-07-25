@@ -57,14 +57,14 @@
   notify:
     - "Ensure 'bitcoind-{{ bitcoin_network }}.service' systemd unit is restarted"
 
-- name: "Ensure Bitcoin data directory '{{ bitcoin_data_dir }}/{{ bitcoin_network }}' exists"
+- name: "Ensure Bitcoin data directory '{{ bitcoin_data_dir }}' exists"
   ansible.builtin.file:
-    path: "{{ bitcoin_data_dir }}/bitcoind-{{ bitcoin_network }}"
+    path: "{{ bitcoin_data_dir }}"
     state: directory
 
-- name: "Ensure Bitcoin data directory '{{ bitcoin_data_dir }}/{{ bitcoin_network }}' uses the correct permissions"
+- name: "Ensure Bitcoin data directory '{{ bitcoin_data_dir }}' uses the correct permissions"
   ansible.builtin.file:
-    path: "{{ bitcoin_data_dir }}/bitcoind-{{ bitcoin_network }}"
+    path: "{{ bitcoin_data_dir }}"
     state: directory
     owner: "{{ bitcoin_user }}"
     group: "{{ bitcoin_group }}"
