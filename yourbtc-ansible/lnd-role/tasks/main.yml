@@ -60,6 +60,8 @@
     dest: /etc/lnd/{{ lnd_network }}/lnd.conf
   become_user: "{{ lnd_user }}"
   become: true
+  notify:
+    - "Ensure 'lnd-{{ lnd_network }}.service' systemd unit is restarted"
 
 - name: "Ensure 'lnd-{{ lnd_network }}.service' systemd unit is enabled and started"
   ansible.builtin.systemd:

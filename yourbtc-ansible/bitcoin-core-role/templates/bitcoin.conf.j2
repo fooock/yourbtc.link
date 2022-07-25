@@ -1,9 +1,16 @@
+
 pid=/run/bitcoind/{{ bitcoin_network }}/bitcoind.pid
 datadir={{ bitcoin_data_dir }}/bitcoind-{{ bitcoin_network }}
 
 daemon=1
 server=1
 chain={{ bitcoin_network }}
+
+rpcuser=yourbtc
+rpcpassword=yourbtc
+
+zmqpubrawblock=tcp://127.0.0.1:28332
+zmqpubrawtx=tcp://127.0.0.1:28333
 
 [{{ bitcoin_network }}]
 bind=127.0.0.1

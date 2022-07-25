@@ -1,58 +1,37 @@
+
 [Application Options]
 
-; The directory that lnd stores all wallet, chain, and channel related data
 datadir={{ lnd_data_dir }}
-
-; The alias your node will use, which can be up to 32 UTF-8 characters in
-; length.
 alias={{ lnd_alias }}
-
-; Debug logging level.
-; Valid levels are {trace, debug, info, warn, error, critical}
-; You may also specify <global-level>,<subsystem>=<level>,<subsystem2>=<level>,...
-; to set log level for individual subsystems. Use lncli debuglevel --show to
-; list available subsystems.
 debuglevel={{ lnd_log_level }}
-
-; Specify the interfaces to listen on for p2p connections. One listen
-; address per line.
 listen={{ lnd_listen }}
-
-; If true, we'll attempt to garbage collect canceled invoices upon start.
 gc-canceled-invoices-on-startup=true
-
-; If true, we'll delete newly canceled invoices on the fly.
 gc-canceled-invoices-on-the-fly=true
 
 
 [Bitcoin]
 
-; If the Bitcoin chain should be active. Atm, only a single chain can be
-; active.
 bitcoin.active=true
-
-; Use Bitcoin's main network.
 bitcoin.{{ lnd_network }}=true
-
-; Use the bitcoind back-end
 bitcoin.node=bitcoind
 
 
 [Bitcoind]
 
-; The host that your local bitcoind daemon is listening on. By default, this
-; setting is assumed to be localhost with the default port for the current
-; network.
 bitcoind.rpchost={{ lnd_bitcoind_rpc_host }}
+bitcoind.rpcuser=yourbtc
+bitcoind.rpcpass=yourbtc
+
+bitcoind.zmqpubrawblock=tcp://127.0.0.1:28332
+bitcoind.zmqpubrawtx=tcp://127.0.0.1:28333
+bitcoind.zmqreaddeadline=10s
 
 
 [tor]
 
-; Allow outbound and inbound connections to be routed through Tor
 tor.active={{ lnd_tor_active }}
 
 
 [watchtower]
 
-; Enable integrated watchtower listening on :9911 by default.
 watchtower.active={{ lnd_watchtower_active }}
