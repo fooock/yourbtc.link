@@ -12,11 +12,17 @@ alias={{ lnd_alias }}
 ; You may also specify <global-level>,<subsystem>=<level>,<subsystem2>=<level>,...
 ; to set log level for individual subsystems. Use lncli debuglevel --show to
 ; list available subsystems.
-debuglevel=info
+debuglevel={{ lnd_log_level }}
 
 ; Specify the interfaces to listen on for p2p connections. One listen
 ; address per line.
-listen=localhost
+listen={{ lnd_listen }}
+
+; If true, we'll attempt to garbage collect canceled invoices upon start.
+gc-canceled-invoices-on-startup=true
+
+; If true, we'll delete newly canceled invoices on the fly.
+gc-canceled-invoices-on-the-fly=true
 
 
 [Bitcoin]
@@ -37,4 +43,16 @@ bitcoin.node=bitcoind
 ; The host that your local bitcoind daemon is listening on. By default, this
 ; setting is assumed to be localhost with the default port for the current
 ; network.
-bitcoind.rpchost=localhost
+bitcoind.rpchost={{ lnd_bitcoind_rpc_host }}
+
+
+[tor]
+
+; Allow outbound and inbound connections to be routed through Tor
+tor.active={{ lnd_tor_active }}
+
+
+[watchtower]
+
+; Enable integrated watchtower listening on :9911 by default.
+watchtower.active={{ lnd_watchtower_active }}

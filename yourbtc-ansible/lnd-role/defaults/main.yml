@@ -11,3 +11,10 @@ lnd_arch: linux-amd64
 lnd_data_dir: /data/lnd
 lnd_network: mainnet
 lnd_alias: yourbtc.link
+lnd_log_level: info
+lnd_listen: localhost
+
+lnd_bitcoind_rpc_host: localhost
+
+lnd_tor_active: false
+lnd_watchtower_active: false
