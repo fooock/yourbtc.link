@@ -41,9 +41,12 @@ jobs:
 
       - name: Install dependencies for project
         run: |
-          pip3 install install ansible molecule[lint] molecule-docker
+          pip3 install install ansible molecule-docker
 
       - name: Test with molecule
         run: |
           cd yourbtc-ansible/${{ matrix.project }}
           molecule test
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'

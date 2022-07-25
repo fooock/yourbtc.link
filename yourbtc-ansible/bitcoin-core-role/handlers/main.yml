@@ -3,7 +3,3 @@
   ansible.builtin.systemd:
     name: bitcoind-{{ bitcoin_network }}.service
     state: restarted
-  tags:
-    # This is to avoid trying to execute this test by Molecule
-    # when using the docker driver since it doesn't use systemd
-    - notest
