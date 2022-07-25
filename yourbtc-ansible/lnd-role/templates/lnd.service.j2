@@ -12,12 +12,20 @@ After=bitcoind-{{ lnd_network }}.service
 {% endif %}
 
 [Service]
-ExecStart=/usr/local/lnd-{{ lnd_version }}/lnd -C /etc/lnd/{{ lnd_network }}/lnd.conf
+Type=notify
+ExecStart=/usr/local/lnd-{{ lnd_version }}/lnd -C /etc/lnd/{{ lnd_network }}/lnd.conf --lnddir={{ lnd_data_dir }}
 ExecStop=/usr/local/lnd-{{ lnd_version }}/lncli stop
 
 # LND configuration /etc/lnd/{{ lnd_network }}
 ConfigurationDirectory=lnd/{{ lnd_network }}
 ConfigurationDirectoryMode=0710
+
+PIDFile=/run/lnd/{{ lnd_network }}/lnd.pid
+RuntimeDirectory=lnd/{{ lnd_network }}
+RuntimeDirectoryMode=0710
+
+Restart=on-failure
+RestartSec=30
 
 User={{ lnd_user }}
 Group={{ lnd_group }}

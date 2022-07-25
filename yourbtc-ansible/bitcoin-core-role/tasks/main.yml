@@ -19,7 +19,7 @@
     http_agent: yourbtc-ansible
 
 - name: "Ensure '/usr/local/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}' directory exists"
-  file:
+  ansible.builtin.file:
     path: /usr/local/bitcoin-core-{{ bitcoin_version }}
     state: directory
 
@@ -37,9 +37,11 @@
   ansible.builtin.template:
     src: bitcoind.service.j2
     dest: /lib/systemd/system/bitcoind-{{ bitcoin_network }}.service
+  notify:
+    - "Ensure 'bitcoind-{{ bitcoin_network }}.service' systemd unit is restarted"
 
 - name: "Ensure Bitcoin configuration directory '/etc/bitcoin/bitcoind-{{ bitcoin_network }}' exists"
-  file:
+  ansible.builtin.file:
     path: /etc/bitcoin/bitcoind-{{ bitcoin_network }}
     state: directory
     owner: "{{ bitcoin_user }}"
@@ -56,7 +58,12 @@
     - "Ensure 'bitcoind-{{ bitcoin_network }}.service' systemd unit is restarted"
 
 - name: "Ensure Bitcoin data directory '{{ bitcoin_data_dir }}/{{ bitcoin_network }}' exists"
-  file:
+  ansible.builtin.file:
+    path: "{{ bitcoin_data_dir }}/bitcoind-{{ bitcoin_network }}"
+    state: directory
+
+- name: "Ensure Bitcoin data directory '{{ bitcoin_data_dir }}/{{ bitcoin_network }}' uses the correct permissions"
+  ansible.builtin.file:
     path: "{{ bitcoin_data_dir }}/bitcoind-{{ bitcoin_network }}"
     state: directory
     owner: "{{ bitcoin_user }}"

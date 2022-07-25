@@ -19,7 +19,7 @@
     http_agent: yourbtc-ansible
 
 - name: "Ensure '/usr/local/lnd-{{ lnd_version }}' directory exists"
-  file:
+  ansible.builtin.file:
     path: /usr/local/lnd-{{ lnd_version }}
     state: directory
 
@@ -34,20 +34,27 @@
       - --strip-components=1
 
 - name: "Ensure LND data directory '{{ lnd_data_dir }}' exists"
-  file:
+  ansible.builtin.file:
     path: "{{ lnd_data_dir }}"
     state: directory
+
+- name: "Ensure LND data directory '{{ lnd_data_dir }}' uses the correct permissions"
+  ansible.builtin.file:
+    path: "{{ lnd_data_dir }}"
     owner: "{{ lnd_user }}"
     group: "{{ lnd_group }}"
-    mode: 'u=rwx,g=rx,o='
+    state: directory
+    mode: 0750
 
 - name: "Copy LND systemd file in '/lib/systemd/system/lnd-{{ lnd_network }}.service'"
   ansible.builtin.template:
     src: lnd.service.j2
     dest: /lib/systemd/system/lnd-{{ lnd_network }}.service
+  notify:
+    - "Ensure 'lnd-{{ lnd_network }}.service' systemd unit is restarted"
 
 - name: "Ensure LND configuration directory '/etc/lnd/{{ lnd_network }}' exists"
-  file:
+  ansible.builtin.file:
     path: /etc/lnd/{{ lnd_network }}
     state: directory
     owner: "{{ lnd_user }}"
