@@ -1,8 +1,15 @@
+EXTRA_VARS := @vars.example.yaml
+INVENTORY := localhost,
+CONNECTION := local
+TAGS :=
+
 install:
-	ansible-playbook -i localhost, --connection=local playbook.yml
+	ansible-playbook -e $(EXTRA_VARS) -i $(INVENTORY) --connection=$(CONNECTION) playbook.yml
 
 install-bitcoin:
-	ansible-playbook -i localhost, --connection=local playbook.yml --tags bitcoin
+	TAGS := bitcoin
+	ansible-playbook -e $(EXTRA_VARS) -i $(INVENTORY) --connection=$(CONNECTION) playbook.yml --tags $(TAGS)
 
 install-lnd:
-	ansible-playbook -i localhost, --connection=local playbook.yml --tags lnd
+	TAGS := lnd
+	ansible-playbook -e $(EXTRA_VARS) -i $(INVENTORY) --connection=$(CONNECTION) playbook.yml --tags $(TAGS)
