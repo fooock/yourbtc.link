@@ -7,9 +7,9 @@ install:
 	ansible-playbook -e $(EXTRA_VARS) -i $(INVENTORY) --connection=$(CONNECTION) playbook.yml
 
 install-bitcoin:
-	TAGS := bitcoin
+	$(eval TAGS=bitcoin)
 	ansible-playbook -e $(EXTRA_VARS) -i $(INVENTORY) --connection=$(CONNECTION) playbook.yml --tags $(TAGS)
 
 install-lnd:
-	TAGS := lnd
+	$(eval TAGS=lnd)
 	ansible-playbook -e $(EXTRA_VARS) -i $(INVENTORY) --connection=$(CONNECTION) playbook.yml --tags $(TAGS)

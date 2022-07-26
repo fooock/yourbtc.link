@@ -18,12 +18,17 @@ bitcoin.node=bitcoind
 
 [Bitcoind]
 
+{% if lnd_bitcoind_local %}
+bitcoind.dir={{ lnd_bitcoind_dir }}
+bitcoind.config={{ lnd_bitcoind_config }}
+{% else %}
 bitcoind.rpchost={{ lnd_bitcoind_rpc_host }}
 bitcoind.rpcuser={{ lnd_bitcoind_rpc_user }}
 bitcoind.rpcpass={{ lnd_bitcoind_rpc_password }}
-bitcoind.zmqpubrawblock=tcp://127.0.0.1:28332
-bitcoind.zmqpubrawtx=tcp://127.0.0.1:28333
+bitcoind.zmqpubrawblock=tcp://{{ lnd_bitcoind_rpc_host }}:28332
+bitcoind.zmqpubrawtx=tcp://{{ lnd_bitcoind_rpc_host }}:28333
 bitcoind.zmqreaddeadline=10s
+{% endif %}
 
 
 [tor]

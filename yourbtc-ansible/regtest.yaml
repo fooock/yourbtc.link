@@ -3,3 +3,6 @@
 # playbook as a 'regtest' network.
 bitcoin_network: regtest
 lnd_network: regtest
+
+# Default bitcoind configuration file
+lnd_bitcoind_config: /etc/bitcoin/bitcoind-{{ bitcoin_network }}
