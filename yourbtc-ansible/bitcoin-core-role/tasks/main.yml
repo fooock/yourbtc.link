@@ -47,7 +47,7 @@
     state: directory
     owner: "{{ bitcoin_user }}"
     group: "{{ bitcoin_group }}"
-    mode: 0710
+    mode: 0750
 
 - name: "Copy bitcoin.conf file into '/etc/bitcoin/bitcoind-{{ bitcoin_network }}'"
   ansible.builtin.template:

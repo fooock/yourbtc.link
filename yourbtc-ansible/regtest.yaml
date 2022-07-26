@@ -5,4 +5,10 @@ bitcoin_network: regtest
 lnd_network: regtest
 
 # Default bitcoind configuration file
-lnd_bitcoind_config: /etc/bitcoin/bitcoind-{{ bitcoin_network }}
+lnd_bitcoind_config: /etc/bitcoin/bitcoind-{{ bitcoin_network }}/bitcoin.conf
+
+# Group to include the LND and Bitcoin user. We use admin here since
+# the configuration is local and both services are going
+# to share the same directories.
+lnd_group: admin
+bitcoin_group: admin

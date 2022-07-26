@@ -18,7 +18,7 @@ ExecStop=/usr/local/lnd-{{ lnd_version }}/lncli stop
 
 # LND configuration /etc/lnd/{{ lnd_network }}
 ConfigurationDirectory=lnd/{{ lnd_network }}
-ConfigurationDirectoryMode=0710
+ConfigurationDirectoryMode=0750
 
 PIDFile=/run/lnd/{{ lnd_network }}/lnd.pid
 RuntimeDirectory=lnd/{{ lnd_network }}

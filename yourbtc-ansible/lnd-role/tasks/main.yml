@@ -60,7 +60,7 @@
     state: directory
     owner: "{{ lnd_user }}"
     group: "{{ lnd_group }}"
-    mode: 0710
+    mode: 0750
 
 - name: "Copy lnd.conf file into '/etc/lnd/{{ lnd_network }}'"
   ansible.builtin.template:
