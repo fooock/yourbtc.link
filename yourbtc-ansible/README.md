@@ -2,4 +2,15 @@
 
 >:warning: You need to have knowledge in Ansible in order to run these scripts by hand.
 
-Files used to install the dependencies used by the [`yourbtc.link`](../README.md) platform.
+This playbook is used to install the dependencies needed by the [`yourbtc.link`](../README.md) 
+platform. It contains two generic roles for [`bitcoind`](bitcoin-core-role) and [`lnd`](lnd-role).
+
+### Run playbook for a specific network
+
+In order to run the project against one specific network you need to overwrite some variables. 
+See the file `regtest.yaml` as an example. If you want to install in into a host, just use the 
+following command:
+
+```shell
+make install EXTRA_VARS=@regtest.yaml
+```
