@@ -8,6 +8,7 @@
   ansible.builtin.user:
     name: "{{ lnd_user }}"
     group: "{{ lnd_group }}"
+    create_home: no
     state: present
     password: "*"
 

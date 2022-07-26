@@ -8,6 +8,7 @@
   ansible.builtin.user:
     name: "{{ bitcoin_user }}"
     group: "{{ bitcoin_group }}"
+    create_home: no
     state: present
     password: "*"
 
