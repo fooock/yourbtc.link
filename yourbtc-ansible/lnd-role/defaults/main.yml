@@ -15,6 +15,8 @@ lnd_log_level: info
 lnd_listen: localhost
 
 lnd_bitcoind_rpc_host: localhost
+lnd_bitcoind_rpc_user: yourbtc
+lnd_bitcoind_rpc_password: yourbtc
 
 lnd_tor_active: false
 lnd_watchtower_active: false
