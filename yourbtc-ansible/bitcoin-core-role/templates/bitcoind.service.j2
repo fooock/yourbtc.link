@@ -6,7 +6,7 @@ After=network.target
 
 [Service]
 Type=forking
-ExecStart=/usr/local/bitcoin-core-{{ bitcoin_version }}/bin/bitcoind -conf=/etc/bitcoin/bitcoind-{{ bitcoin_network }}/bitcoin.conf
+ExecStart=/usr/local/bitcoin-core-{{ bitcoin_version }}/bin/bitcoind -conf=/etc/bitcoin/{{ bitcoin_network }}/bitcoin.conf
 
 # It is recommended to use this field if service Type is set to forking,
 # so that systemd can reliably identify the main process of the service.
@@ -16,8 +16,8 @@ PIDFile=/run/bitcoind/{{ bitcoin_network }}/bitcoind.pid
 RuntimeDirectory=bitcoind/{{ bitcoin_network }}
 RuntimeDirectoryMode=0710
 
-# Bitcoin configuration /etc/bitcoin/bitcoind-{{ bitcoin_network }}
-ConfigurationDirectory=bitcoin/bitcoind-{{ bitcoin_network }}
+# Bitcoin configuration /etc/bitcoin/{{ bitcoin_network }}
+ConfigurationDirectory=bitcoin/{{ bitcoin_network }}
 ConfigurationDirectoryMode=0750
 
 Restart=on-failure
