@@ -4,13 +4,14 @@ datadir={{ bitcoin_data_dir }}
 
 daemon=1
 server=1
+txindex=1
 chain={{ bitcoin_network }}
 
 rpcuser={{ bitcoin_rpc_user }}
 rpcpassword={{ bitcoin_rpc_password }}
 
-zmqpubrawblock=tcp://127.0.0.1:28332
-zmqpubrawtx=tcp://127.0.0.1:28333
+zmqpubrawblock=tcp://{{bitcoin_zmq_host }}:28332
+zmqpubrawtx=tcp://{{bitcoin_zmq_host }}:28333
 
 [{{ bitcoin_network }}]
 bind=127.0.0.1
