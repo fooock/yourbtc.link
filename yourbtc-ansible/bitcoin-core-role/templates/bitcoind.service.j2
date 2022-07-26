@@ -22,8 +22,15 @@ ConfigurationDirectoryMode=0750
 
 Restart=on-failure
 RestartSec=30
+
 User={{ bitcoin_user }}
 Group={{ bitcoin_group }}
+
+PrivateTmp=true
+ProtectSystem=full
+NoNewPrivileges=true
+PrivateDevices=true
+MemoryDenyWriteExecute=true
 
 [Install]
 WantedBy=multi-user.target

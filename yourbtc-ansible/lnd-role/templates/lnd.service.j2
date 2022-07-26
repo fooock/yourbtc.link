@@ -30,5 +30,11 @@ RestartSec=30
 User={{ lnd_user }}
 Group={{ lnd_group }}
 
+PrivateTmp=true
+ProtectSystem=full
+NoNewPrivileges=true
+PrivateDevices=true
+MemoryDenyWriteExecute=true
+
 [Install]
 WantedBy=multi-user.target
