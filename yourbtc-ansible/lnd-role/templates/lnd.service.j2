@@ -1,6 +1,6 @@
 
 [Unit]
-Description=Lightning Network Daemon for network {{ lnd_network }}
+Description=Lightning Network Daemon for network {{ lnd_network | capitalize }}
 Documentation=https://github.com/fooock/yourbtc.link
 
 {% if lnd_network == 'mainnet' %}
