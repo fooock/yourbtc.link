@@ -1,5 +1,8 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    lnd_bitcoind_local: false
+    lnd_network: regtest
   roles:
     - yourbtc.lnd
