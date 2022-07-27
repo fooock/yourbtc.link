@@ -8,7 +8,6 @@
   ansible.builtin.user:
     name: "{{ lnd_user }}"
     group: "{{ lnd_group }}"
-    create_home: no
     state: present
     password: "*"
 
@@ -70,6 +69,14 @@
   become: true
   notify:
     - "Ensure 'lnd-{{ lnd_network }}.service' systemd unit is restarted"
+
+- name: "Ensure symbolic link from '/etc/lnd/{{ lnd_network }}' to '/home/{{ lnd_user }}/.lnd' exists"
+  file:
+    src: /etc/lnd/{{ lnd_network }}
+    dest: /home/{{ lnd_user }}/.lnd
+    state: link
+  become_user: "{{ lnd_user }}"
+  become: true
 
 - name: "Ensure 'lnd-{{ lnd_network }}.service' systemd unit is enabled and started"
   ansible.builtin.systemd:
