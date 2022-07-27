@@ -13,7 +13,7 @@
   tasks:
     - name: Install Bitcoin Core client
       import_role:
-        name: bitcoin-core-role
+        name: bitcoin-role
       tags:
         - bitcoin
 
