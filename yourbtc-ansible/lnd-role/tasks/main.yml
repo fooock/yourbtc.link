@@ -70,9 +70,9 @@
   notify:
     - "Ensure 'lnd-{{ lnd_network }}.service' systemd unit is restarted"
 
-- name: "Ensure symbolic link from '/etc/lnd/{{ lnd_network }}' to '/home/{{ lnd_user }}/.lnd' exists"
+- name: "Ensure symbolic link from '{{ lnd_data_dir }}' to '/home/{{ lnd_user }}/.lnd' exists"
   file:
-    src: /etc/lnd/{{ lnd_network }}
+    src: "{{ lnd_data_dir }}"
     dest: /home/{{ lnd_user }}/.lnd
     state: link
   become_user: "{{ lnd_user }}"

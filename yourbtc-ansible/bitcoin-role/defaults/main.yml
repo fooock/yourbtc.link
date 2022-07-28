@@ -14,4 +14,4 @@ bitcoin_network: main
 bitcoin_rpc_user: yourbtc
 bitcoin_rpc_password: yourbtc
 
-bitcoin_zmq_host: localhost
+bitcoin_zmq_host: 127.0.0.1

@@ -12,7 +12,8 @@ lnd_data_dir: /data/lnd
 lnd_network: mainnet
 lnd_alias: yourbtc.link
 lnd_log_level: info
-lnd_listen: localhost
+lnd_listen: 127.0.0.1
+lnd_tls_extra_domain: yourbtc.local
 
 # If LND and bitcoind are in the same machine, this field
 # should be true, otherwise false. Configure `bitcoind_rpc`
@@ -27,7 +28,7 @@ lnd_bitcoind_config: /etc/bitcoin/bitcoin.conf
 # This data is only going to be used in the case that `lnd_bitcoind_local`
 # is set to false. Otherwise, the connection from LND to bitcoind is set to
 # 'local'.
-lnd_bitcoind_rpc_host: localhost
+lnd_bitcoind_rpc_host: 127.0.0.1
 lnd_bitcoind_rpc_user: yourbtc
 lnd_bitcoind_rpc_password: yourbtc
 
