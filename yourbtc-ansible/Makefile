@@ -1,4 +1,4 @@
-EXTRA_VARS := @../yourbtc-examples/regtest.yaml
+EXTRA_VARS := @examples/regtest.yaml
 INVENTORY := localhost,
 CONNECTION := local
 TAGS :=

@@ -5,6 +5,7 @@ on:
       - '.github/workflows/ansible.yml'
       - 'yourbtc-ansible/**'
       - '!yourbtc-ansible/**/README.md'
+      - '!yourbtc-ansible/examples/**'
 
 jobs:
 
@@ -45,7 +46,7 @@ jobs:
 
       - name: Test with molecule
         run: |
-          cd yourbtc-ansible/${{ matrix.project }}
+          cd yourbtc-ansible/roles/${{ matrix.project }}
           molecule test
         env:
           PY_COLORS: '1'
