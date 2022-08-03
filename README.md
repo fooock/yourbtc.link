@@ -4,4 +4,4 @@
 
 > :construction: This project is in early development
 
-Your own self-hosted Bitcoin and Lightning management tool
+Simple and automated installer for your own self-hosted Bitcoin and Lightning node.
