@@ -1,4 +1,10 @@
 ---
+- name: Ensure dependencies are installed
+  ansible.builtin.apt:
+    update_cache: yes
+    name: gpg
+    state: present
+
 - name: "Ensure group '{{ bitcoin_group }}' exists"
   ansible.builtin.group:
     name: "{{ bitcoin_group }}"
