@@ -1,0 +1,12 @@
+---
+- name: "Ensure Bitcoin PGP public key for user '{{ gpg_user }}' is added"
+  command: gpg --keyserver hkps://keys.openpgp.org --recv-keys {{ gpg_id }}
+
+- name: "Download all.SHA256SUMS.asc for user '{{ gpg_user }}' and Bitcoin v{{ bitcoin_version }} into '/tmp/all.SHA256SUMS.asc'"
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/bitcoin-core/guix.sigs/main/{{ bitcoin_version }}/{{ gpg_user }}/all.SHA256SUMS.asc
+    dest: /tmp/all.SHA256SUMS.asc
+    http_agent: yourbtc-ansible
+
+- name: "Verify GPG signature for user '{{ gpg_user }}' and Bitcoin v{{ bitcoin_version }}"
+  shell: gpg --verify /tmp/all.SHA256SUMS.asc /tmp/SHA256SUMS
