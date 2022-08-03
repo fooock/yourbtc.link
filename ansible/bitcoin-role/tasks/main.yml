@@ -29,7 +29,10 @@
     dest: /tmp/SHA256SUMS
     http_agent: yourbtc-ansible
 
-- include: gpg.yml gpg_user={{ item.name }} gpg_id={{ item.id }}
+- include_tasks: gpg.yml
+  vars:
+    gpg_user: "{{ item.name }}"
+    gpg_id: "{{ item.id }}"
   with_items: "{{ bitcoin_pgp_builders_pub_key }}"
   # We only need to download and verify GPG signatures if
   # `bitcoin_pgp_builders_pub_key` list is greater than 0

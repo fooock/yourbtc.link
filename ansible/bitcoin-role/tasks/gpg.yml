@@ -8,5 +8,5 @@
     dest: /tmp/all.SHA256SUMS.asc
     http_agent: yourbtc-ansible
 
-- name: "Verify GPG signature for user '{{ gpg_user }}' and Bitcoin v{{ bitcoin_version }}"
+- name: "Verify GPG signature for user '{{ gpg_user }}' and Bitcoin v{{ bitcoin_version }} SHA256SUMS"
   shell: gpg --verify /tmp/all.SHA256SUMS.asc /tmp/SHA256SUMS
