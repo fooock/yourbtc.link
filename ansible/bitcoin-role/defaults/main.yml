@@ -22,7 +22,13 @@ bitcoin_pgp_builders_pub_key:
 bitcoin_data_dir: /data/bitcoin
 bitcoin_network: main
 
+# Bitcoin RPC server auth data. These default values are not
+# recommended, and you should use your own ones. You are going
+# to use these values always to be able to read/write data
+# from your node, so be sure to maintain it secret.
 bitcoin_rpc_user: yourbtc
 bitcoin_rpc_password: yourbtc
 
+# This is the host where you want to expose the ZMQ TCP socket
+# to receive raw block and transaction updates.
 bitcoin_zmq_host: 127.0.0.1
