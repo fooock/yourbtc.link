@@ -1,12 +1,21 @@
 ---
 - name: "Ensure Bitcoin PGP public key for user '{{ gpg_user }}' is added"
-  command: gpg --keyserver hkps://keys.openpgp.org --recv-keys {{ gpg_id }}
+  ansible.builtin.apt_key:
+    id: "{{ gpg_id }}"
+    keyserver: hkps://keys.openpgp.org
+    state: present
 
-- name: "Download all.SHA256SUMS.asc for user '{{ gpg_user }}' and Bitcoin v{{ bitcoin_version }} into '/tmp/all.SHA256SUMS.asc'"
+- name: "Ensure '/tmp/gpg-{{ gpg_user }}' directory exists"
+  ansible.builtin.file:
+    path: /tmp/gpg-{{ gpg_user }}
+    state: directory
+
+- name: "Download all.SHA256SUMS.asc for user '{{ gpg_user }}' and Bitcoin v{{ bitcoin_version }} into '/tmp/gpg-{{ gpg_user }}/all.SHA256SUMS.asc'"
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/bitcoin-core/guix.sigs/main/{{ bitcoin_version }}/{{ gpg_user }}/all.SHA256SUMS.asc
-    dest: /tmp/all.SHA256SUMS.asc
+    dest: /tmp/gpg-{{ gpg_user }}/all.SHA256SUMS.asc
     http_agent: yourbtc-ansible
 
 - name: "Verify GPG signature for user '{{ gpg_user }}' and Bitcoin v{{ bitcoin_version }} SHA256SUMS"
-  shell: gpg --verify /tmp/all.SHA256SUMS.asc /tmp/SHA256SUMS
+  shell: gpg --verify /tmp/gpg-{{ gpg_user }}/all.SHA256SUMS.asc /tmp/SHA256SUMS
+  changed_when: false
