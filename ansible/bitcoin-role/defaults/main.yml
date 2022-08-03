@@ -15,6 +15,8 @@ bitcoin_pgp_builders_pub_key:
     name: darosior
   - id: F4FC70F07310028424EFC20A8E4256593F177720
     name: guggero
+  - id: E777299FC265DD04793070EB944D35F9AC3DB76A
+    name: fanquake
 
 # Bitcoin node configuration
 bitcoin_data_dir: /data/bitcoin
