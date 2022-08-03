@@ -2,8 +2,14 @@
 - name: Ensure dependencies are installed
   ansible.builtin.apt:
     update_cache: yes
-    name: gpg
+    name: "{{ item }}"
     state: present
+  with_items:
+    - gpg
+    - dirmngr
+  # We only need to install these dependencies if we
+  # have the GPG keys to verify the SHA256SUMS file
+  when: bitcoin_pgp_builders_pub_key is defined and bitcoin_pgp_builders_pub_key | length > 0
 
 - name: "Ensure group '{{ bitcoin_group }}' exists"
   ansible.builtin.group:
@@ -25,6 +31,8 @@
 
 - include: gpg.yml gpg_user={{ item.name }} gpg_id={{ item.id }}
   with_items: "{{ bitcoin_pgp_builders_pub_key }}"
+  # We only need to download and verify GPG signatures if
+  # `bitcoin_pgp_builders_pub_key` list is greater than 0
   when: bitcoin_pgp_builders_pub_key is defined and bitcoin_pgp_builders_pub_key | length > 0
 
 - name: "Download Bitcoin Core v{{ bitcoin_version }} into '/tmp/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz'"
