@@ -19,6 +19,7 @@
 
 - include: gpg.yml gpg_user={{ item.name }} gpg_id={{ item.id }}
   with_items: "{{ bitcoin_pgp_builders_pub_key }}"
+  when: bitcoin_pgp_builders_pub_key is defined and bitcoin_pgp_builders_pub_key | length > 0
 
 - name: "Download Bitcoin Core v{{ bitcoin_version }} into '/tmp/bitcoin-core-{{ bitcoin_version }}-{{ bitcoin_arch }}.tar.gz'"
   ansible.builtin.get_url:
