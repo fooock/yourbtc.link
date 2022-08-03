@@ -13,12 +13,12 @@
   tasks:
     - name: Install Bitcoin Core client
       import_role:
-        name: bitcoin-role
+        name: ../yourbtc-ansible/bitcoin-role
       tags:
         - bitcoin
 
     - name: Install Lighting Network Daemon
       import_role:
-        name: lnd-role
+        name: ../yourbtc-ansible/lnd-role
       tags:
         - lnd
