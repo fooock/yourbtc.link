@@ -3,9 +3,8 @@ on:
   push:
     paths:
       - '.github/workflows/ansible.yml'
-      - 'yourbtc-ansible/**'
-      - '!yourbtc-ansible/**/README.md'
-      - '!yourbtc-ansible/examples/**'
+      - 'ansible/**'
+      - '!ansible/**/README.md'
 
 jobs:
 
@@ -17,7 +16,7 @@ jobs:
         uses: dawidd6/action-ansible-playbook@v2.5.0
         with:
           playbook: playbook.yml
-          directory: ./yourbtc-installer
+          directory: ./installer
           inventory: |
             [all]
             localhost
@@ -46,7 +45,7 @@ jobs:
 
       - name: Test with molecule
         run: |
-          cd yourbtc-ansible/${{ matrix.project }}
+          cd ansible/${{ matrix.project }}
           molecule test
         env:
           PY_COLORS: '1'

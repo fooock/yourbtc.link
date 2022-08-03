@@ -3,7 +3,7 @@
 >:warning: You need to have knowledge in Ansible in order to run these scripts by hand.
 
 This playbook is used to install the dependencies needed by the [`yourbtc.link`](../README.md) 
-platform. It contains two generic roles for [`bitcoind`](../yourbtc-ansible/bitcoin-role) and [`lnd`](../yourbtc-ansible/lnd-role).
+platform. It contains two generic roles for [`bitcoind`](../ansible/bitcoin-role) and [`lnd`](../ansible/lnd-role).
 You can tune it to fit your needs by importing the roles in a playbook and changing some variables as 
 you can see below.
 
