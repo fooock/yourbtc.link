@@ -3,7 +3,5 @@
   hosts: all
   vars:
     bitcoin_network: regtest
-    # Don't use GPG in tests
-    bitcoin_pgp_builders_pub_key: ""
   roles:
     - yourbtc.bitcoin_core
