@@ -1,9 +1,13 @@
+# This file is executed in a loop based on the number of elements
+# found in the `bitcoin_pgp_builders_pub_key` structure. Be sure to move
+# away from this file common tasks like setting facts, install dependencies, etc
 ---
 - name: "Ensure Bitcoin PGP public key for user '{{ gpg_user }}' is added"
   ansible.builtin.apt_key:
     id: "{{ gpg_id }}"
     keyserver: hkps://keys.openpgp.org
     state: present
+    keyring: "{{ gpg_home_dir }}/bitcoin-v{{ bitcoin_version }}-{{ gpg_user }}.gpg"
 
 - name: "Ensure '/tmp/gpg-{{ gpg_user }}' directory exists"
   ansible.builtin.file:
@@ -16,6 +20,6 @@
     dest: /tmp/gpg-{{ gpg_user }}/all.SHA256SUMS.asc
     http_agent: yourbtc-ansible
 
-- name: "Verify GPG signature for user '{{ gpg_user }}' and Bitcoin v{{ bitcoin_version }} SHA256SUMS"
-  shell: gpg --verify /tmp/gpg-{{ gpg_user }}/all.SHA256SUMS.asc /tmp/SHA256SUMS
+- name: "Verify GPG signature using '/tmp/gpg-{{ gpg_user }}/all.SHA256SUMS.asc' for file '/tmp/SHA256SUMS' (Bitcoin v{{ bitcoin_version }})"
+  shell: gpg --keyring {{ gpg_home_dir }}/bitcoin-v{{ bitcoin_version }}-{{ gpg_user }}.gpg --no-default-keyring --verify /tmp/gpg-{{ gpg_user }}/all.SHA256SUMS.asc /tmp/SHA256SUMS
   changed_when: false

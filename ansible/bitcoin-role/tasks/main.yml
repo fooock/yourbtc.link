@@ -11,6 +11,10 @@
   # have the GPG keys to verify the SHA256SUMS file
   when: bitcoin_pgp_builders_pub_key is defined and bitcoin_pgp_builders_pub_key | length > 0
 
+- name: Ensure GPG base keyring directory is set as a fact for this OS
+  ansible.builtin.set_fact:
+    gpg_home_dir: /etc/apt/trusted.gpg.d
+
 - name: "Ensure group '{{ bitcoin_group }}' exists"
   ansible.builtin.group:
     name: "{{ bitcoin_group }}"
