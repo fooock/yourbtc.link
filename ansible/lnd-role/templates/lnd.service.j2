@@ -13,8 +13,8 @@ After=bitcoind-{{ lnd_network }}.service
 
 [Service]
 Type=notify
-ExecStart=/usr/local/lnd-{{ lnd_version }}/lnd -C /etc/lnd/{{ lnd_network }}/lnd.conf --lnddir={{ lnd_data_dir }}
-ExecStop=/usr/local/lnd-{{ lnd_version }}/lncli stop
+ExecStart=/usr/local/lnd-v{{ lnd_version }}/lnd -C /etc/lnd/{{ lnd_network }}/lnd.conf --lnddir={{ lnd_data_dir }}
+ExecStop=/usr/local/lnd-v{{ lnd_version }}/lncli stop
 
 # LND configuration /etc/lnd/{{ lnd_network }}
 ConfigurationDirectory=lnd/{{ lnd_network }}

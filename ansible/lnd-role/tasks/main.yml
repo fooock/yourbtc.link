@@ -62,15 +62,15 @@
     msg: Checksum {{ lnd_sha256.stat.checksum }} is not present inside /tmp/manifest-v{{ lnd_version }}.txt for /tmp/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz
   when: checksum_verification.changed
 
-- name: "Ensure '/usr/local/lnd-{{ lnd_version }}' directory exists"
+- name: "Ensure '/usr/local/lnd-v{{ lnd_version }}' directory exists"
   ansible.builtin.file:
-    path: /usr/local/lnd-{{ lnd_version }}
+    path: /usr/local/lnd-v{{ lnd_version }}
     state: directory
 
-- name: "Unpack 'lnd-{{ lnd_arch }}-{{ lnd_version }}.tar.gz' into '/usr/local/lnd-{{ lnd_version }}'"
+- name: "Unpack 'lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz' into '/usr/local/lnd-v{{ lnd_version }}'"
   ansible.builtin.unarchive:
-    src: /tmp/lnd-{{ lnd_arch }}-{{ lnd_version }}.tar.gz
-    dest: /usr/local/lnd-{{ lnd_version }}
+    src: /tmp/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz
+    dest: /usr/local/lnd-v{{ lnd_version }}
     remote_src: yes
     owner: "{{ lnd_user }}"
     group: "{{ lnd_group }}"
