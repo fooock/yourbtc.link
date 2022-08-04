@@ -1,0 +1,21 @@
+# This file is executed in a loop based on the number of elements
+# found in the `lnd_pgp_keys` structure. Be sure to move
+# away from this file common tasks like setting facts, install dependencies, etc
+---
+- name: "Download {{ gpg_user }}.asc"
+  ansible.builtin.get_url:
+    url:  https://raw.githubusercontent.com/lightningnetwork/lnd/master/scripts/keys/{{ gpg_user }}.asc
+    dest: /tmp/lnd-{{ gpg_user }}.asc
+    http_agent: yourbtc-ansible
+
+- name: "Download 'manifest-{{ gpg_user }}-v{{ lnd_version }}.sig'"
+  ansible.builtin.get_url:
+    url: https://github.com/lightningnetwork/lnd/releases/download/v{{ lnd_version }}/manifest-{{ gpg_user }}-v{{ lnd_version }}.sig
+    dest: /tmp/manifest-{{ gpg_user }}-v{{ lnd_version }}.sig
+    http_agent: yourbtc-ansible
+
+- name: "GPG verify using '/tmp/manifest-{{ gpg_user }}-v{{ lnd_version }}.sig' file '/tmp/manifest-v{{ lnd_version }}.txt'"
+  shell: |
+    gpg --import /tmp/lnd-{{ gpg_user }}.asc
+    gpg --verify /tmp/manifest-{{ gpg_user }}-v{{ lnd_version }}.sig /tmp/manifest-v{{ lnd_version }}.txt
+  changed_when: false

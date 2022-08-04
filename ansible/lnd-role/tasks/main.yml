@@ -1,4 +1,30 @@
 ---
+- name: Ensure dependencies are installed
+  ansible.builtin.apt:
+    update_cache: yes
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - gpg
+    - dirmngr
+  when: lnd_pgp_keys is defined and lnd_pgp_keys | length > 0
+
+- name: Ensure GPG base keyring directory is set as a fact for this OS
+  ansible.builtin.set_fact:
+    gpg_home_dir: /etc/apt/trusted.gpg.d
+
+- name: "Download manifest for LND v{{ lnd_version }} into '/tmp/manifest-v{{ lnd_version }}.txt'"
+  ansible.builtin.get_url:
+    url: https://github.com/lightningnetwork/lnd/releases/download/v{{ lnd_version }}/manifest-v{{ lnd_version }}.txt
+    dest: /tmp/manifest-v{{ lnd_version }}.txt
+    http_agent: yourbtc-ansible
+
+- include_tasks: gpg.yml
+  vars:
+    gpg_user: "{{ item }}"
+  with_items: "{{ lnd_pgp_keys }}"
+  when: lnd_pgp_keys is defined and lnd_pgp_keys | length > 0
+
 - name: "Ensure group '{{ lnd_group }}' exists"
   ansible.builtin.group:
     name: "{{ lnd_group }}"
@@ -14,9 +40,27 @@
 - name: "Download LND v{{ lnd_version }} into '/tmp/lnd-{{ lnd_arch }}-{{ lnd_version }}.tar.gz'"
   ansible.builtin.get_url:
     url: https://github.com/lightningnetwork/lnd/releases/download/v{{ lnd_version }}/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz
-    dest: /tmp/lnd-{{ lnd_arch }}-{{ lnd_version }}.tar.gz
+    dest: /tmp/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz
     checksum: sha256:https://github.com/lightningnetwork/lnd/releases/download/v{{ lnd_version }}/manifest-v{{ lnd_version }}.txt
     http_agent: yourbtc-ansible
+
+- name: "Calculate checksum for '/tmp/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz'"
+  ansible.builtin.stat:
+    checksum_algorithm: sha256
+    path: /tmp/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz
+  register: lnd_sha256
+
+- name: "Ensure that checksum for '/tmp/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz' is valid"
+  ansible.builtin.lineinfile:
+    path: /tmp/manifest-v{{ lnd_version }}.txt
+    line: "{{ lnd_sha256.stat.checksum }}  lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz"
+  check_mode: yes
+  register: checksum_verification
+
+- name: "Checksum for '/tmp/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz' not found in '/tmp/manifest-v{{ lnd_version }}.txt'"
+  ansible.builtin.fail:
+    msg: Checksum {{ lnd_sha256.stat.checksum }} is not present inside /tmp/manifest-v{{ lnd_version }}.txt for /tmp/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz
+  when: checksum_verification.changed
 
 - name: "Ensure '/usr/local/lnd-{{ lnd_version }}' directory exists"
   ansible.builtin.file:
