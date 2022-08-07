@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Bitcoin} from "../model/bitcoin";
+import {Bitcoin} from "./bitcoin";
 
 @Injectable({
   providedIn: 'root'
