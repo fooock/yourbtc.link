@@ -40,7 +40,7 @@ func main() {
 	// bitcoin node is down. In any other case, this will return the raw
 	// response from the node in JSON
 	api.GET("info", func(context *gin.Context) {
-		result, err := btcClient.client.GetBlockChainInfo()
+		result, err := btcClient.info()
 		if err != nil {
 			context.AbortWithStatus(http.StatusInternalServerError)
 			return
