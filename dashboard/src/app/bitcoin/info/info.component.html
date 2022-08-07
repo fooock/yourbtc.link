@@ -1,7 +1,7 @@
 <div *ngIf="model != undefined">
   <div class="container">
-    <h3 class="card-title">Bitcoin Core</h3>
-    <h6 class="card-subtitle mb-2 text-muted">{{model.NetworkInfo.subversion}}</h6>
+    <h3 class="card-title fw-bolder">Bitcoin Core</h3>
+    <h6 class="card-subtitle mb-2">{{model.NetworkInfo.subversion}}</h6>
 
     <pre>
 
@@ -11,17 +11,18 @@
 <strong>Headers</strong> : {{model.BlockchainInfo.headers}}
 <strong>Size</strong>    : {{model.BlockchainInfo.size_on_disk}} bytes
 
-<h6>Blockchain information</h6>
+<h6 class="fw-bolder">Blockchain information</h6>
 <strong>Best block hash</strong> : {{model.BlockchainInfo.bestblockhash}}
 <strong>Chain work</strong>      : {{model.BlockchainInfo.chainwork}}
-<strong>Difficulty</strong>      : {{model.BlockchainInfo.difficulty.toLocaleString('fullwide', { useGrouping: false })}}
-<strong>Tx count</strong>        : {{model.ChainTxStats.txcount}} (<span class="text-muted">{{model.ChainTxStats.txrate}} TPS</span>)
+<strong>Difficulty</strong>      : {{model.BlockchainInfo.difficulty.toLocaleString()}}
+<strong>Tx count</strong>        : {{model.ChainTxStats.txcount}} <span>({{model.ChainTxStats.txrate}} TPS)</span>
 
-<h6>Network information</h6>
+<h6 class="fw-bolder">Network information</h6>
 <strong>Connections</strong> : {{model.NetworkInfo.connections}} / in {{model.NetworkInfo.connections_in}} / out {{model.NetworkInfo.connections_out}}
 <strong>Received</strong>    : {{model.NetTotals.totalbytesrecv}} bytes
 <strong>Sent</strong>        : {{model.NetTotals.totalbytessent}} bytes
 
     </pre>
+
   </div>
 </div>

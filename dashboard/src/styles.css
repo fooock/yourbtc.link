@@ -1,3 +1,5 @@
-*, pre {
+*, pre, body {
   font-family: 'Roboto Mono', monospace;
+  background-color: black;
+  color: #f2a900;
 }
