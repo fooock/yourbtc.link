@@ -1,15 +1,27 @@
 <div *ngIf="model != undefined">
-  <p>Syncing: {{model.BlockchainInfo.verificationprogress * 100}}%</p>
-  <p>Blocks: {{model.BlockchainInfo.blocks}}</p>
-  <p>Headers: {{model.BlockchainInfo.headers}}</p>
-  <p>Best block hash: {{model.BlockchainInfo.bestblockhash}}</p>
-  <p>Size: {{model.BlockchainInfo.size_on_disk}} bytes</p>
+  <div class="container">
+    <h3 class="card-title">Bitcoin Core</h3>
+    <h6 class="card-subtitle mb-2 text-muted">{{model.NetworkInfo.subversion}}</h6>
 
-  <p>Version: {{model.NetworkInfo.subversion}}</p>
-  <p>Connections: ({{model.NetworkInfo.connections}}) /
-    in({{model.NetworkInfo.connections_in}})
-    out({{model.NetworkInfo.connections_out}})</p>
+    <pre>
 
-  <p>Received: {{model.NetTotals.totalbytesrecv}} bytes</p>
-  <p>Sent: {{model.NetTotals.totalbytessent}} bytes</p>
+<strong>Chain</strong>   : {{model.BlockchainInfo.chain}}
+<strong>Syncing</strong> : {{model.BlockchainInfo.verificationprogress * 100}}%
+<strong>Blocks</strong>  : {{model.BlockchainInfo.blocks}}
+<strong>Headers</strong> : {{model.BlockchainInfo.headers}}
+<strong>Size</strong>    : {{model.BlockchainInfo.size_on_disk}} bytes
+
+<h6>Blockchain information</h6>
+<strong>Best block hash</strong> : {{model.BlockchainInfo.bestblockhash}}
+<strong>Chain work</strong>      : {{model.BlockchainInfo.chainwork}}
+<strong>Difficulty</strong>      : {{model.BlockchainInfo.difficulty.toLocaleString('fullwide', { useGrouping: false })}}
+<strong>Tx count</strong>        : {{model.ChainTxStats.txcount}} (<span class="text-muted">{{model.ChainTxStats.txrate}} TPS</span>)
+
+<h6>Network information</h6>
+<strong>Connections</strong> : {{model.NetworkInfo.connections}} / in {{model.NetworkInfo.connections_in}} / out {{model.NetworkInfo.connections_out}}
+<strong>Received</strong>    : {{model.NetTotals.totalbytesrecv}} bytes
+<strong>Sent</strong>        : {{model.NetTotals.totalbytessent}} bytes
+
+    </pre>
+  </div>
 </div>
