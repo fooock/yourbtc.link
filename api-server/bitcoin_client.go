@@ -1,6 +1,9 @@
 package main
 
-import "github.com/btcsuite/btcd/rpcclient"
+import (
+	"fmt"
+	"github.com/btcsuite/btcd/rpcclient"
+)
 
 // bitcoinClient is the client responsible to talk with our
 // Bitcoind RPC daemon
@@ -14,11 +17,11 @@ type bitcoinClient struct {
 func newBitcoinClient(config *bitcoinConfig) (*bitcoinClient, error) {
 	// Connection configuration for our new client
 	connConfig := &rpcclient.ConnConfig{
-		Host:         "localhost:18443",
+		Host:         fmt.Sprintf("%s:%d", config.RpcBind, config.RpcPort),
 		Endpoint:     "ws",
 		User:         config.RpcUser,
 		Pass:         config.RpcPassword,
-		Params:       "regtest",
+		Params:       config.Chain,
 		DisableTLS:   true,
 		HTTPPostMode: true,
 	}

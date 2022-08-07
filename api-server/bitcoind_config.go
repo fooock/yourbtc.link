@@ -10,8 +10,26 @@ import (
 // bitcoinConfig is the content of the bitcoin.conf in a
 // structured way
 type bitcoinConfig struct {
+	RpcBind     string `toml:"rpcbind"`
+	RpcPort     int    `toml:"rpcport"`
 	RpcUser     string `toml:"rpcuser"`
 	RpcPassword string `toml:"rpcpassword"`
+	Chain       string
+}
+
+func (c *bitcoinConfig) defaultPort() int {
+	switch c.Chain {
+	case "testnet":
+		return 18332
+	case "signet":
+		return 38332
+	case "regtest":
+		return 18443
+	// In any other case we assume that the connection
+	// is done by using the main network
+	default:
+		return 8332
+	}
 }
 
 // readBitcoinConfig reads the content of the `bitcoin.conf` file
@@ -21,7 +39,12 @@ func readBitcoinConfig(file string) (*bitcoinConfig, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer content.Close()
+	defer func(content *os.File) {
+		// close and ignore error
+		_ = content.Close()
+	}(content)
+
+	// actual configuration parsing
 	return readContent(content)
 }
 
@@ -34,6 +57,20 @@ func readContent(reader io.Reader) (*bitcoinConfig, error) {
 	err = toml.Unmarshal(content, &config)
 	if err != nil {
 		return nil, err
+	}
+	// If rpcBind is not set, then by default we use a sane
+	// default like localhost
+	if config.RpcBind == "" {
+		config.RpcBind = "localhost"
+	}
+	// If chain is not set we use 'main' as default
+	if config.Chain == "" {
+		config.Chain = "main"
+	}
+	// If port is not set then we use the default one
+	// based on the selected chain
+	if config.RpcPort == 0 {
+		config.RpcPort = config.defaultPort()
 	}
 	return &config, nil
 }
