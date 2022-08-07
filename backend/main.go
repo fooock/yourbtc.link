@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -33,6 +34,7 @@ func main() {
 	defer btcClient.close()
 
 	router := gin.Default()
+	router.Use(cors.Default())
 	api := router.Group("/api/v1")
 
 	// Request to retrieve the blockchain info. This method will return an

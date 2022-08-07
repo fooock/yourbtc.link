@@ -2,3 +2,6 @@
 ansible/venv
 .vagrant
 */test-bitcoin.conf
+*/.vscode
+*/node_modules
+*/.angular
