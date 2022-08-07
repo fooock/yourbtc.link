@@ -1,4 +1,4 @@
 .idea
 ansible/venv
 .vagrant
-api-server/test-bitcoin.conf
+*/test-bitcoin.conf

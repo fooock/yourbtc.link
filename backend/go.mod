@@ -1,4 +1,4 @@
-module github.com/fooock/yourbtc.link/api-server
+module github.com/fooock/yourbtc.link/backend
 
 go 1.18
 
