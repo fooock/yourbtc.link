@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/pelletier/go-toml/v2"
+	"gopkg.in/ini.v1"
 	"io"
 	"io/ioutil"
 	"os"
@@ -10,10 +10,10 @@ import (
 // bitcoinConfig is the content of the bitcoin.conf in a
 // structured way
 type bitcoinConfig struct {
-	RpcBind     string `toml:"rpcbind"`
-	RpcPort     int    `toml:"rpcport"`
-	RpcUser     string `toml:"rpcuser"`
-	RpcPassword string `toml:"rpcpassword"`
+	RpcBind     string
+	RpcPort     int
+	RpcUser     string
+	RpcPassword string
 	Chain       string
 }
 
@@ -53,10 +53,16 @@ func readContent(reader io.Reader) (*bitcoinConfig, error) {
 	if err != nil {
 		return nil, err
 	}
-	var config bitcoinConfig
-	err = toml.Unmarshal(content, &config)
+	cfg, err := ini.Load(content)
 	if err != nil {
 		return nil, err
+	}
+	config := &bitcoinConfig{
+		Chain:       cfg.Section("").Key("chain").String(),
+		RpcBind:     cfg.Section("").Key("rpcbind").String(),
+		RpcPort:     cfg.Section("").Key("rpcport").MustInt(0),
+		RpcPassword: cfg.Section("").Key("rpcpassword").String(),
+		RpcUser:     cfg.Section("").Key("rpcuser").String(),
 	}
 	// If rpcBind is not set, then by default we use a sane
 	// default like localhost
@@ -72,5 +78,5 @@ func readContent(reader io.Reader) (*bitcoinConfig, error) {
 	if config.RpcPort == 0 {
 		config.RpcPort = config.defaultPort()
 	}
-	return &config, nil
+	return config, nil
 }

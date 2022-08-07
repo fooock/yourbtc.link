@@ -16,9 +16,9 @@ func TestValidBitcoinConfigFile(t *testing.T) {
 	var content bytes.Buffer
 	// This is our valid bitcoind.conf file content
 	content.WriteString(`
-rpcuser='yourbtc'
-rpcpassword='yourbtc'
-chain='regtest'
+rpcuser=yourbtc
+rpcpassword=yourbtc
+chain=regtest
 `)
 	config, err := readContent(&content)
 	if err != nil {
@@ -37,7 +37,7 @@ chain='regtest'
 
 func TestValidBitcoinConfigFileWithMissingField(t *testing.T) {
 	var content bytes.Buffer
-	content.WriteString(`rpcpassword='yourbtc'`)
+	content.WriteString(`rpcpassword=yourbtc`)
 	config, err := readContent(&content)
 	if err != nil {
 		t.Fatal(err)
