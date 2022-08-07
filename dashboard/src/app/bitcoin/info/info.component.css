@@ -1,3 +1,11 @@
 strong {
   opacity: .5;
 }
+
+h6 > strong {
+  opacity: 0.6;
+}
+
+pre > span, .card-subtitle {
+  opacity: .5;
+}

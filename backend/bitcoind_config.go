@@ -19,8 +19,12 @@ type bitcoinConfig struct {
 
 func (c *bitcoinConfig) defaultPort() int {
 	switch c.Chain {
+	case "testnet3":
+		fallthrough
 	case "testnet":
 		return 18332
+	case "simnet":
+		fallthrough
 	case "signet":
 		return 38332
 	case "regtest":
