@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Bitcoin} from "../bitcoin";
 import {BitcoinService} from "../bitcoin.service";
+import {Util} from "../../util";
 
 @Component({
   selector: 'app-info',
@@ -10,6 +11,7 @@ import {BitcoinService} from "../bitcoin.service";
 export class InfoComponent implements OnInit, OnDestroy {
   model: Bitcoin | undefined
   interval: number | undefined
+  transformBytes = Util.transformBytes
 
   constructor(private btcService: BitcoinService) {
     this.interval = setInterval(() => {

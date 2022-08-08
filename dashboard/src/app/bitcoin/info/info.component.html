@@ -7,17 +7,17 @@
 
 <h6>Blockchain information</h6>
 <span>Chain</span>           : {{model.BlockchainInfo.chain}}
-<span>Syncing</span>         : {{(model.BlockchainInfo.verificationprogress * 100).toFixed(2)}}% / <span>blocks</span> {{model.BlockchainInfo.blocks}} / <span>headers</span> {{model.BlockchainInfo.headers}}
-<span>Size</span>            : {{model.BlockchainInfo.size_on_disk}} <span>bytes</span>
+<span>Syncing</span>         : {{(model.BlockchainInfo.verificationprogress * 100).toFixed(2)}}% / <span>blocks</span> {{model.BlockchainInfo.blocks.toLocaleString()}} / <span>headers</span> {{model.BlockchainInfo.headers.toLocaleString()}}
+<span>Size</span>            : {{transformBytes(model.BlockchainInfo.size_on_disk)}}
 <span>Best block hash</span> : {{model.BlockchainInfo.bestblockhash}}
 <span>Chain work</span>      : {{model.BlockchainInfo.chainwork}}
 <span>Difficulty</span>      : {{model.BlockchainInfo.difficulty.toLocaleString()}}
-<span>Tx count</span>        : {{model.ChainTxStats.txcount}} <span>({{model.ChainTxStats.txrate.toFixed(2)}} TPS)</span>
+<span>Tx count</span>        : {{model.ChainTxStats.txcount.toLocaleString()}} <span>({{model.ChainTxStats.txrate.toFixed(2)}} TPS)</span>
 
 <h6>Network information</h6>
 <span>Connections</span> : {{model.NetworkInfo.connections}} / <span>in</span> {{model.NetworkInfo.connections_in}} / <span>out</span> {{model.NetworkInfo.connections_out}}
-<span>Received</span>    : {{model.NetTotals.totalbytesrecv}} bytes
-<span>Sent</span>        : {{model.NetTotals.totalbytessent}} bytes
+<span>Received</span>    : {{transformBytes(model.NetTotals.totalbytesrecv)}}
+<span>Sent</span>        : {{transformBytes(model.NetTotals.totalbytessent)}}
 
     </pre>
 
