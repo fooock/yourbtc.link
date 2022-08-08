@@ -3,8 +3,9 @@ package main
 import (
 	"flag"
 	"github.com/gin-contrib/cors"
+	"github.com/gin-contrib/timeout"
 	"github.com/gin-gonic/gin"
-	"net/http"
+	"time"
 )
 
 func main() {
@@ -41,15 +42,11 @@ func main() {
 	// internal server error (500) if an unexpected error happens, like the
 	// bitcoin node is down. In any other case, this will return the raw
 	// response from the node in JSON
-	api.GET("info", func(context *gin.Context) {
-		result, err := btcClient.info()
-		if err != nil {
-			context.AbortWithStatus(http.StatusInternalServerError)
-			return
-		}
-		context.JSON(http.StatusOK, result)
-	})
-
+	api.GET("info", timeout.New(
+		timeout.WithTimeout(5*time.Second),
+		timeout.WithHandler(fetchBitcoinInfo(btcClient)),
+	))
+	// start the server
 	if err := router.Run(); err != nil {
 		panic(err)
 	}
