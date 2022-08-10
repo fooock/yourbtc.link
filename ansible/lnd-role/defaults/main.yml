@@ -39,5 +39,10 @@ lnd_bitcoind_rpc_host: 127.0.0.1
 lnd_bitcoind_rpc_user: yourbtc
 lnd_bitcoind_rpc_password: yourbtc
 
+# Whether the databases used within lnd should automatically be compacted on
+# every startup
+lnd_bolt_auto_compact: true
+lnd_bolt_auto_compact_min_age: 48h
+
 lnd_tor_active: false
 lnd_watchtower_active: false
