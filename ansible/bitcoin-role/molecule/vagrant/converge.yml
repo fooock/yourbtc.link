@@ -1,0 +1,11 @@
+---
+- name: Converge
+  hosts: all
+  # We are going to install in a non root user
+  remote_user: vagrant
+  become: true
+
+  vars:
+    bitcoin_network: signet
+  roles:
+    - yourbtc.bitcoin_core
