@@ -7,7 +7,7 @@ bitcoin_group: bitcoin
 bitcoin_version: 23.0
 bitcoin_arch: x86_64-linux-gnu
 
-# Bitcoin GPG public keys. Name must match the ones found galaxy_info:
+# Bitcoin GPG public keys. Name must match the ones found in
 # this link https://github.com/bitcoin-core/guix.sigs. The ID of each
 # user can be found here https://github.com/bitcoin/bitcoin/blob/master/contrib/builder-keys/keys.txt
 bitcoin_pgp_builders_pub_key:
