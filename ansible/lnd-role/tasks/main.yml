@@ -1,5 +1,5 @@
 ---
-- name: Ensure dependencies are installed
+- name: LND | Ensure dependencies are installed
   ansible.builtin.apt:
     update_cache: yes
     name: "{{ item }}"
@@ -9,11 +9,11 @@
     - dirmngr
   when: lnd_pgp_keys is defined and lnd_pgp_keys | length > 0
 
-- name: Ensure GPG base keyring directory is set as a fact for this OS
+- name: LND | Ensure GPG base keyring directory is set as a fact for this OS
   ansible.builtin.set_fact:
     gpg_home_dir: /etc/apt/trusted.gpg.d
 
-- name: "Download manifest for LND v{{ lnd_version }} into '/tmp/manifest-v{{ lnd_version }}.txt'"
+- name: "LND | Download manifest for LND v{{ lnd_version }} into '/tmp/manifest-v{{ lnd_version }}.txt'"
   ansible.builtin.get_url:
     url: https://github.com/lightningnetwork/lnd/releases/download/v{{ lnd_version }}/manifest-v{{ lnd_version }}.txt
     dest: /tmp/manifest-v{{ lnd_version }}.txt
@@ -25,49 +25,49 @@
   with_items: "{{ lnd_pgp_keys }}"
   when: lnd_pgp_keys is defined and lnd_pgp_keys | length > 0
 
-- name: "Ensure group '{{ lnd_group }}' exists"
+- name: "LND | Ensure group '{{ lnd_group }}' exists"
   ansible.builtin.group:
     name: "{{ lnd_group }}"
     state: present
 
-- name: "Ensure user '{{ lnd_user }}' with a primary group of '{{ lnd_group }}' exists"
+- name: "LND | Ensure user '{{ lnd_user }}' with a primary group of '{{ lnd_group }}' exists"
   ansible.builtin.user:
     name: "{{ lnd_user }}"
     group: "{{ lnd_group }}"
     state: present
     password: "*"
 
-- name: "Download LND v{{ lnd_version }} into '/tmp/lnd-{{ lnd_arch }}-{{ lnd_version }}.tar.gz'"
+- name: "LND | Download LND v{{ lnd_version }} into '/tmp/lnd-{{ lnd_arch }}-{{ lnd_version }}.tar.gz'"
   ansible.builtin.get_url:
     url: https://github.com/lightningnetwork/lnd/releases/download/v{{ lnd_version }}/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz
     dest: /tmp/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz
     checksum: sha256:https://github.com/lightningnetwork/lnd/releases/download/v{{ lnd_version }}/manifest-v{{ lnd_version }}.txt
     http_agent: yourbtc-ansible
 
-- name: "Calculate checksum for '/tmp/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz'"
+- name: "LND | Calculate checksum for '/tmp/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz'"
   ansible.builtin.stat:
     checksum_algorithm: sha256
     path: /tmp/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz
   register: lnd_sha256
 
-- name: "Ensure that checksum for '/tmp/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz' is valid"
+- name: "LND | Ensure that checksum for '/tmp/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz' is valid"
   ansible.builtin.lineinfile:
     path: /tmp/manifest-v{{ lnd_version }}.txt
     line: "{{ lnd_sha256.stat.checksum }}  lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz"
   check_mode: yes
   register: checksum_verification
 
-- name: "Checksum for '/tmp/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz' not found in '/tmp/manifest-v{{ lnd_version }}.txt'"
+- name: "LND | Checksum for '/tmp/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz' not found in '/tmp/manifest-v{{ lnd_version }}.txt'"
   ansible.builtin.fail:
     msg: Checksum {{ lnd_sha256.stat.checksum }} is not present inside /tmp/manifest-v{{ lnd_version }}.txt for /tmp/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz
   when: checksum_verification.changed
 
-- name: "Ensure '/usr/local/lnd-v{{ lnd_version }}' directory exists"
+- name: "LND | Ensure '/usr/local/lnd-v{{ lnd_version }}' directory exists"
   ansible.builtin.file:
     path: /usr/local/lnd-v{{ lnd_version }}
     state: directory
 
-- name: "Unpack 'lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz' into '/usr/local/lnd-v{{ lnd_version }}'"
+- name: "LND | Unpack 'lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz' into '/usr/local/lnd-v{{ lnd_version }}'"
   ansible.builtin.unarchive:
     src: /tmp/lnd-{{ lnd_arch }}-v{{ lnd_version }}.tar.gz
     dest: /usr/local/lnd-v{{ lnd_version }}
@@ -77,12 +77,12 @@
     extra_opts:
       - --strip-components=1
 
-- name: "Ensure LND data directory '{{ lnd_data_dir }}' exists"
+- name: "LND | Ensure LND data directory '{{ lnd_data_dir }}' exists"
   ansible.builtin.file:
     path: "{{ lnd_data_dir }}"
     state: directory
 
-- name: "Ensure LND data directory '{{ lnd_data_dir }}' uses the correct permissions"
+- name: "LND | Ensure LND data directory '{{ lnd_data_dir }}' uses the correct permissions"
   ansible.builtin.file:
     path: "{{ lnd_data_dir }}"
     owner: "{{ lnd_user }}"
@@ -90,14 +90,14 @@
     state: directory
     mode: 0750
 
-- name: "Copy LND systemd file in '/lib/systemd/system/lnd-{{ lnd_network }}.service'"
+- name: "LND | Copy LND systemd file in '/lib/systemd/system/lnd-{{ lnd_network }}.service'"
   ansible.builtin.template:
     src: lnd.service.j2
     dest: /lib/systemd/system/lnd-{{ lnd_network }}.service
   notify:
-    - "Ensure 'lnd-{{ lnd_network }}.service' systemd unit is restarted"
+    - "LND | Ensure 'lnd-{{ lnd_network }}.service' systemd unit is restarted"
 
-- name: "Ensure LND configuration directory '/etc/lnd/{{ lnd_network }}' exists"
+- name: "LND | Ensure LND configuration directory '/etc/lnd/{{ lnd_network }}' exists"
   ansible.builtin.file:
     path: /etc/lnd/{{ lnd_network }}
     state: directory
@@ -105,16 +105,16 @@
     group: "{{ lnd_group }}"
     mode: 0750
 
-- name: "Copy lnd.conf file into '/etc/lnd/{{ lnd_network }}'"
+- name: "LND | Copy lnd.conf file into '/etc/lnd/{{ lnd_network }}'"
   ansible.builtin.template:
     src: lnd.conf.j2
     dest: /etc/lnd/{{ lnd_network }}/lnd.conf
   become_user: "{{ lnd_user }}"
   become: true
   notify:
-    - "Ensure 'lnd-{{ lnd_network }}.service' systemd unit is restarted"
+    - "LND | Ensure 'lnd-{{ lnd_network }}.service' systemd unit is restarted"
 
-- name: "Ensure symbolic link from '{{ lnd_data_dir }}' to '/home/{{ lnd_user }}/.lnd' exists"
+- name: "LND | Ensure symbolic link from '{{ lnd_data_dir }}' to '/home/{{ lnd_user }}/.lnd' exists"
   file:
     src: "{{ lnd_data_dir }}"
     dest: /home/{{ lnd_user }}/.lnd
@@ -122,7 +122,7 @@
   become_user: "{{ lnd_user }}"
   become: true
 
-- name: "Ensure 'lnd-{{ lnd_network }}.service' systemd unit is enabled and started"
+- name: "LND | Ensure 'lnd-{{ lnd_network }}.service' systemd unit is enabled and started"
   ansible.builtin.systemd:
     name: lnd-{{ lnd_network }}.service
     daemon_reload: yes
