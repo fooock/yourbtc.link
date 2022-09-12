@@ -1,4 +1,4 @@
-EXTRA_VARS := @../examples/regtest.yaml
+EXTRA_VARS := @../examples/vars/regtest.yaml
 INVENTORY := localhost,
 CONNECTION := local
 TAGS :=

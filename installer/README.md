@@ -10,7 +10,7 @@ you can see below.
 ### Run playbook for a specific network
 
 In order to run the project against one specific network you need to overwrite some variables. 
-See the file `regtest.yaml` as an example. If you want to install in into a host, just use the 
+See the file [`regtest.yaml`](../examples/vars/regtest.yaml) as an example. If you want to install in into a host, just use the 
 following command:
 
 ```shell
