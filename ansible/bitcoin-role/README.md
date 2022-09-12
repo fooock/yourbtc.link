@@ -1,6 +1,7 @@
 # Ansible Bitcoin role
 
-Ansible role to install the [Bitcoin Core](https://bitcoincore.org/en/about/) client as a `systemd` service.
+Ansible role to install the [Bitcoin Core](https://bitcoincore.org/en/about/) client as a `systemd` service. By default,
+it uses sane defaults and some hardening measures for the Systemd service.
 
 ### Requirements
 
@@ -50,6 +51,7 @@ bitcoin_pgp_builders_pub_key:
 ```
 
 >I use the Guix attestations to verify the release. The data can be found on the [Bitcoin Github official repository](https://github.com/bitcoin-core/guix.sigs).
+> If the release can't be trusted the role will fail the installation.
 
 To configure the Bitcoin node, you can use the following variables:
 
