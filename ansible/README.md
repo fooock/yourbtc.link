@@ -12,4 +12,4 @@ Here you can find the Ansible roles used by the platform. At this moment the ava
 ### Requirements
 
 You need to have at least `Python 3.8` and `Ansible 2.10` to run the roles. Go to [`Installing Ansible`](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
-if you need to install it in your system.
+if you need to install it in your system. For testing purposes you will also need Docker or Vagrant.
