@@ -5,7 +5,8 @@ By default, it uses sane defaults and some hardening measures for the Systemd se
 
 ### Requirements
 
->At this moment this role is only supported in Ubuntu systems.
+>This role can only be installed in Ubuntu systems. Also, at this moment this role only supports `bitcoind`
+> as a backend.
 
 This role requires a user with `sudo` permissions to work properly.
 
@@ -55,10 +56,11 @@ lnd_pgp_keys:
 
 To configure the LND node, you can use the following variables:
 
-| Name                   	 | Value           	      | Note                                             	 |
-|--------------------------|------------------------|----------------------------------------------------|
-| `lnd_data_dir`     	     | `/data/lnd` 	          | 	                                                  |
-| `lnd_network`      	     | `mainnet`          	   | Valid values are: `testnet` and `simnet` 	         |
-| `lnd_alias`     	        | `yourbtc.link`       	 | 	                                                  |
-| `lnd_log_level` 	        | `info`       	         | 	                                                  |
-| `lnd_listen`     	       | `127.0.0.1`     	      | 	                                                  |
+| Name                   	     | Value           	      | Note                                             	 |
+|------------------------------|------------------------|----------------------------------------------------|
+| `lnd_data_dir`     	         | `/data/lnd` 	          | 	                                                  |
+| `lnd_network`      	         | `mainnet`          	   | Valid values are: `testnet` and `simnet` 	         |
+| `lnd_alias`     	            | `yourbtc.link`       	 | 	                                                  |
+| `lnd_log_level` 	            | `info`       	         | 	                                                  |
+| `lnd_listen`     	           | `127.0.0.1`     	      | 	                                                  |
+| `lnd_tls_extra_domain`     	 | `yourbtc.local`     	  | 	                                                  |
