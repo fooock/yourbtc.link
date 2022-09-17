@@ -3,6 +3,9 @@
 Ansible role to install the Lightning Network Daemon ([LND](https://github.com/lightningnetwork/lnd)) as a `systemd` service.
 By default, it uses sane defaults and some hardening measures for the Systemd service.
 
+By default, all binaries are installed inside `/usr/local/lnd-<version>/` directory. So for example, if you are installing
+the version `v0.15.0-beta`, if you want to invoke the `lncli` binary, you will need to use `/usr/local/lnd-v0.15.0-beta/lncli`.
+
 ### Requirements
 
 >This role can only be installed in Ubuntu systems. Also, at this moment this role only supports `bitcoind`

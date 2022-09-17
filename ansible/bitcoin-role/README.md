@@ -3,6 +3,10 @@
 Ansible role to install the [Bitcoin Core](https://bitcoincore.org/en/about/) client as a `systemd` service. By default,
 it uses sane defaults and some hardening measures for the Systemd service.
 
+By default, all binaries are installed inside `/usr/local/bitcoin-core-<version>/bin` directory. So for example, if you are installing
+the version `23.0`, if you want to invoke the `bitcoin-cli` binary, you will need to use `/usr/local/bitcoin-core-23.0/bin/bitcoin-cli`.
+Note this is the case for the rest of binaries from Bitcoin.
+
 ### Requirements
 
 >At this moment this role is only supported in Ubuntu operating systems. 
