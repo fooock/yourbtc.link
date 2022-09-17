@@ -22,6 +22,21 @@ c95c04b  lnd      virtualbox running /projects/yourbtc.link/examples/multi-host
 After the command ends successfully, check that services are running properly inside the
 virtual machine. You can connect to each one with using the machine name after `vagrant ssh`.
 
+### Configuration
+
+If you want to change the configuration you need to take into account that the most important
+part is the networking since if configured wrong your LND node will be unable to start. As a 
+summary, you need to set two static IPs. In our example they are:
+
+| Service 	 | `lnd`          	 | `bitcoind`     	 |
+|-----------|------------------|------------------|
+| IP   	    | `192.168.56.5` 	 | `192.168.56.4` 	 |
+
+>If you want to change these values to test, do it directly in the [Vagrantfile](Vagrantfile) and remember
+> to update also the values in the [regtest.yaml](regtest.yaml) file.
+
+### Check status
+
 For example, to check the `bitcoind` service inside its own virtual machine first connect to the
 machine using `vagrant ssh bitcoind` and then check the service status:
 
