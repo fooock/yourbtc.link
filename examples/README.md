@@ -3,9 +3,11 @@
 Ansible examples to configure a specific network or any other interesting feature. At this moment, we have the
 following examples:
 
-* [Bitcoin and LND sharing the same host](simple)
-* [Bitcoin and LND in different hosts](remote)
+* [Run Bitcoin and LND on same host](simple)
+* [Run Bitcoin and LND in different hosts](remote)
+* [Run Bitcoin and LND on a Raspberry](raspberry)
 
 ### Requirements
 
-In order to run the examples you need to have [Vagrant](https://www.vagrantup.com/) installed.
+In order to run the examples you need to have [Vagrant](https://www.vagrantup.com/) installed. For the
+Raspberry installed, you only need Ansible.
