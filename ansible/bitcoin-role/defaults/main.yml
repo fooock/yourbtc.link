@@ -30,6 +30,7 @@ bitcoin_bind: 127.0.0.1
 bitcoin_rpc_user: yourbtc
 bitcoin_rpc_password: yourbtc
 bitcoin_rpc_bind: 127.0.0.1
+bitcoin_rpc_allow_ip: 127.0.0.1
 
 # This is the host where you want to expose the ZMQ TCP socket
 # to receive raw block and transaction updates.

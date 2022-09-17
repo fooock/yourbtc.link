@@ -4,7 +4,9 @@
 bitcoin_network: regtest
 lnd_network: regtest
 
+bitcoin_zmq_host: 192.168.56.4
 bitcoin_rpc_bind: 192.168.56.4
+bitcoin_rpc_allow_ip: 192.168.56.5
 
 # Default bitcoind configuration file
 lnd_bitcoind_config: /etc/bitcoin/{{ bitcoin_network }}/bitcoin.conf
