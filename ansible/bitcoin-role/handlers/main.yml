@@ -1,5 +1,5 @@
 ---
-- name: "Bitcoind | Ensure 'bitcoind-{{ bitcoin_network }}.service' systemd unit is restarted"
+- name: Bitcoind | Ensure 'bitcoind-{{ bitcoin_network }}.service' systemd unit is restarted
   ansible.builtin.systemd:
     name: bitcoind-{{ bitcoin_network }}.service
     state: restarted

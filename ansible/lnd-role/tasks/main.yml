@@ -95,7 +95,7 @@
     src: lnd.service.j2
     dest: /lib/systemd/system/lnd-{{ lnd_network }}.service
   notify:
-    - "LND | Ensure 'lnd-{{ lnd_network }}.service' systemd unit is restarted"
+    - LND | Ensure 'lnd-{{ lnd_network }}.service' systemd unit is restarted
 
 - name: "LND | Ensure LND configuration directory '/etc/lnd/{{ lnd_network }}' exists"
   ansible.builtin.file:
@@ -109,18 +109,18 @@
   ansible.builtin.template:
     src: lnd.conf.j2
     dest: /etc/lnd/{{ lnd_network }}/lnd.conf
-  become_user: "{{ lnd_user }}"
-  become: true
+    owner: "{{ lnd_user }}"
+    group: "{{ lnd_group }}"
   notify:
-    - "LND | Ensure 'lnd-{{ lnd_network }}.service' systemd unit is restarted"
+    - LND | Ensure 'lnd-{{ lnd_network }}.service' systemd unit is restarted
 
 - name: "LND | Ensure symbolic link from '{{ lnd_data_dir }}' to '/home/{{ lnd_user }}/.lnd' exists"
   file:
     src: "{{ lnd_data_dir }}"
     dest: /home/{{ lnd_user }}/.lnd
     state: link
-  become_user: "{{ lnd_user }}"
-  become: true
+    owner: "{{ lnd_user }}"
+    group: "{{ lnd_group }}"
 
 - name: "LND | Ensure 'lnd-{{ lnd_network }}.service' systemd unit is enabled and started"
   ansible.builtin.systemd:
