@@ -1,18 +1,17 @@
 # Running on different hosts
 
-In this example we are going to use two virtual machines. One will have `bitcoind` installed
+In this example, we are going to use two virtual machines. One will have `bitcoind` installed
 and the other one will have `lnd`. Each one with its own resources but sharing the same private
-network in order to allow communication succeed. If you want to test this using Vagrant just execute 
+network in order to allow communication to succeed. If you want to test this using Vagrant just execute 
 the following command:
 
 ```shell
 $ vagrant up
 ```
 
-This command will start up two virtual machines. You can check it using the following command:
+This command will start up two virtual machines:
 
 ```bash
-$ vagrant global-status
 id       name     provider   state   directory
 -------------------------------------------------------------------------------------------
 144cdd6  bitcoind virtualbox running /projects/yourbtc.link/examples/multi-host
@@ -20,12 +19,12 @@ c95c04b  lnd      virtualbox running /projects/yourbtc.link/examples/multi-host
 ```
 
 After the command ends successfully, check that services are running properly inside the
-virtual machine. You can connect to each one with using the machine name after `vagrant ssh`.
+virtual machine. You can connect to each one by using the machine name after `vagrant ssh`.
 
 ### Configuration
 
 If you want to change the configuration you need to take into account that the most important
-part is the networking since if configured wrong your LND node will be unable to start. As a 
+part is the networking, since if configured wrong, your LND node will be unable to start. In 
 summary, you need to set two static IPs. In our example they are:
 
 | Service 	 | `lnd`          	 | `bitcoind`     	 |
@@ -37,10 +36,10 @@ summary, you need to set two static IPs. In our example they are:
 
 ### Check status
 
-For example, to check the `bitcoind` service inside its own virtual machine first connect to the
+For example, to check the `bitcoind` service inside its own virtual machine, first connect to the
 machine using `vagrant ssh bitcoind` and then check the service status:
 
-```bash
+```
 vagrant@yourbtc-bitcoind:~$ systemctl status bitcoind-regtest.service
 ● bitcoind-regtest.service - Bitcoin Core daemon for network Regtest
      Loaded: loaded (/lib/systemd/system/bitcoind-regtest.service; enabled; vendor preset: enabled)
@@ -54,9 +53,9 @@ vagrant@yourbtc-bitcoind:~$ systemctl status bitcoind-regtest.service
              └─18294 /usr/local/bitcoin-core-23.0/bin/bitcoind -conf=/etc/bitcoin/regtest/bitcoin.conf
 ```
 
-To check the `lnd` service connect to the `lnd` machine and the the service status:
+To check the `lnd` service connect to the `lnd` machine and check the service status:
 
-```bash
+```
 vagrant@yourbtc-lnd:~$ systemctl status lnd-regtest.service
 ● lnd-regtest.service - Lightning Network Daemon for network Regtest
      Loaded: loaded (/lib/systemd/system/lnd-regtest.service; enabled; vendor preset: enabled)
@@ -72,7 +71,7 @@ vagrant@yourbtc-lnd:~$ systemctl status lnd-regtest.service
 
 >Note the `Wallet locked` status in the `lnd` service.
 
-To destroy all resources just execute the following commands:
+To destroy all resources just execute the following command:
 
 ```bash
 $ vagrant destroy
