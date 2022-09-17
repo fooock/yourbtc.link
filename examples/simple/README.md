@@ -1,4 +1,4 @@
-# Running on the same host
+# Running services on the same host
 
 >This example is to show how we can install `bitcoind` with `lnd` in the same host like
 > a Raspberry or a virtual machine.
@@ -11,10 +11,10 @@ $ vagrant up
 
 ### Configuration
 
-As you can see in the [regtest.yaml](regtest.yaml) file, the `lnd_group` and `bitcoin_group` shares
+As you can see in the [regtest.yaml](regtest.yaml) file, the `lnd_group` and `bitcoin_group` share
 the same value. This is because `lnd` needs to read the Bitcoin data, and for this to work, 
 they need to share the same group to be able to read the required files. Note that this is only required
-when installing both services in the same host, like this example.
+when installing both services in the same host, like in this example.
 
 ### Check status
 

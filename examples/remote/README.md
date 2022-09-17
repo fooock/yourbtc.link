@@ -1,4 +1,4 @@
-# Running on different hosts
+# Running services on different hosts
 
 In this example, we are going to use two virtual machines. One will have `bitcoind` installed
 and the other one will have `lnd`. Each one with its own resources but sharing the same private
@@ -14,8 +14,8 @@ This command will start up two virtual machines:
 ```bash
 id       name     provider   state   directory
 -------------------------------------------------------------------------------------------
-144cdd6  bitcoind virtualbox running /projects/yourbtc.link/examples/multi-host
-c95c04b  lnd      virtualbox running /projects/yourbtc.link/examples/multi-host
+144cdd6  bitcoind virtualbox running /projects/yourbtc.link/examples/remote
+c95c04b  lnd      virtualbox running /projects/yourbtc.link/examples/remote
 ```
 
 After the command ends successfully, check that services are running properly inside the

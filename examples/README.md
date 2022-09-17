@@ -3,8 +3,8 @@
 Ansible examples to configure a specific network or any other interesting feature. At this moment, we have the
 following examples:
 
-* [Bitcoin and LND sharing the same host](uni-host)
-* [Bitcoin and LND in different hosts](multi-host)
+* [Bitcoin and LND sharing the same host](simple)
+* [Bitcoin and LND in different hosts](remote)
 
 ### Requirements
 
