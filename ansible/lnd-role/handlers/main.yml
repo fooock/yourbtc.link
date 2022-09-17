@@ -1,5 +1,5 @@
 ---
-- name: LND | Ensure 'lnd-{{ lnd_network }}.service' systemd unit is restarted
+- name: LND | Ensure lnd systemd unit is restarted
   ansible.builtin.systemd:
     name: lnd-{{ lnd_network }}.service
     state: restarted

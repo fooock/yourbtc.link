@@ -85,7 +85,7 @@
     src: bitcoind.service.j2
     dest: /lib/systemd/system/bitcoind-{{ bitcoin_network }}.service
   notify:
-    - Bitcoind | Ensure 'bitcoind-{{ bitcoin_network }}.service' systemd unit is restarted
+    - Bitcoind | Ensure bitcoind systemd unit is restarted
 
 - name: "Bitcoind | Ensure Bitcoin configuration directory '/etc/bitcoin/{{ bitcoin_network }}' exists"
   ansible.builtin.file:
@@ -102,7 +102,7 @@
     owner: "{{ bitcoin_user }}"
     group: "{{ bitcoin_group }}"
   notify:
-    - Bitcoind | Ensure 'bitcoind-{{ bitcoin_network }}.service' systemd unit is restarted
+    - Bitcoind | Ensure bitcoind systemd unit is restarted
 
 - name: "Bitcoind | Ensure Bitcoin data directory '{{ bitcoin_data_dir }}' exists"
   ansible.builtin.file:
