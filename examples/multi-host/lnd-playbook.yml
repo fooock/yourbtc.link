@@ -1,0 +1,19 @@
+- name: The yourbtc.link installer
+  hosts: all
+
+  pre_tasks:
+    - name: Update system
+      become: true
+      apt:
+        update_cache: yes
+        upgrade: dist
+      tags:
+        - init
+
+  tasks:
+    - include_vars: regtest.yaml
+    - name: Install Lighting Network Daemon
+      import_role:
+        name: ../../ansible/lnd-role
+      tags:
+        - lnd
