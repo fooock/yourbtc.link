@@ -8,10 +8,6 @@ bitcoin_zmq_host: 192.168.56.4
 bitcoin_rpc_bind: 192.168.56.4
 bitcoin_rpc_allow_ip: 192.168.56.5
 
-# Default bitcoind configuration file
-lnd_bitcoind_config: /etc/bitcoin/{{ bitcoin_network }}/bitcoin.conf
-lnd_tls_extra_domain: "{{ ansible_hostname }}"
-
 lnd_bitcoind_local: false
 lnd_bitcoind_rpc_host: 192.168.56.4
 lnd_bitcoind_rpc_user: yourbtc

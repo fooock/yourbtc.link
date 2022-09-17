@@ -20,7 +20,7 @@ lnd_network: mainnet
 lnd_alias: yourbtc.link
 lnd_log_level: info
 lnd_listen: 127.0.0.1
-lnd_tls_extra_domain: yourbtc.local
+lnd_tls_extra_domain: "{{ ansible_hostname }}"
 
 # If LND and bitcoind are in the same machine, this field
 # should be true, otherwise false. Configure `bitcoind_rpc`
