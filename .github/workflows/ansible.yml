@@ -9,21 +9,6 @@ on:
 
 jobs:
 
-  check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Check Ansible role syntax
-        uses: dawidd6/action-ansible-playbook@v2.5.0
-        with:
-          playbook: playbook.yml
-          directory: ./installer
-          inventory: |
-            [all]
-            localhost
-          options: |
-            --syntax-check
-
   molecule:
     runs-on: ubuntu-latest
     strategy:
@@ -31,6 +16,7 @@ jobs:
       matrix:
         python-version: [ 3.8 ]
         project: [ bitcoin-role, lnd-role ]
+
     steps:
       - uses: actions/checkout@v2
       - uses: docker-practice/actions-setup-docker@master
