@@ -4,6 +4,8 @@ Ansible examples to configure a specific network or any other interesting featur
 following examples:
 
 * [Bitcoin and LND sharing the same host](same-host)
-* [Bitcoin and LND if different hosts](multi-host)
+* [Bitcoin and LND in different hosts](multi-host)
+
+### Requirements
 
 In order to run the examples you need to have [Vagrant](https://www.vagrantup.com/) installed.
