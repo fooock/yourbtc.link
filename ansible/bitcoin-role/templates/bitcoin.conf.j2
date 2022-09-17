@@ -7,11 +7,12 @@ server=1
 txindex=1
 chain={{ bitcoin_network }}
 
-rpcuser={{ bitcoin_rpc_user }}
-rpcpassword={{ bitcoin_rpc_password }}
-
-zmqpubrawblock=tcp://127.0.0.1:28332
-zmqpubrawtx=tcp://127.0.0.1:28333
+zmqpubrawblock=tcp://{{ bitcoin_rpc_bind }}:28332
+zmqpubrawtx=tcp://{{ bitcoin_rpc_bind }}:28333
 
 [{{ bitcoin_network }}]
-bind=127.0.0.1
+bind={{ bitcoin_bind }}
+rpcbind={{ bitcoin_rpc_bind }}
+rpcallowip={{ bitcoin_rpc_bind }}
+rpcuser={{ bitcoin_rpc_user }}
+rpcpassword={{ bitcoin_rpc_password }}
