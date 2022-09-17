@@ -9,6 +9,15 @@ If you want to test this using Vagrant just execute the following command:
 $ vagrant up
 ```
 
+### Configuration
+
+As you can see in the [regtest.yaml](regtest.yaml) file, the `lnd_group` and `bitcoin_group` shares
+the same value. This is because `lnd` needs to read the Bitcoin data, and for this to work, 
+they need to share the same group to be able to read the required files. Note that this is only required
+when installing both services in the same host, like this example.
+
+### Check status
+
 After the script ends successfully, check that services are running properly inside the
 virtual machine.
 
