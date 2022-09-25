@@ -59,11 +59,28 @@ lnd_pgp_keys:
 
 To configure the LND node, you can use the following variables:
 
-| Name                   	     | Value           	      | Note                                             	 |
-|------------------------------|------------------------|----------------------------------------------------|
-| `lnd_data_dir`     	         | `/data/lnd` 	          | 	                                                  |
-| `lnd_network`      	         | `mainnet`          	   | Valid values are: `testnet` and `simnet` 	         |
-| `lnd_alias`     	            | `yourbtc.link`       	 | 	                                                  |
-| `lnd_log_level` 	            | `info`       	         | 	                                                  |
-| `lnd_listen`     	           | `127.0.0.1`     	      | 	                                                  |
-| `lnd_tls_extra_domain`     	 | `yourbtc.local`     	  | 	                                                  |
+| Name                   	     | Value           	              | Note                                             	                               |
+|------------------------------|--------------------------------|----------------------------------------------------------------------------------|
+| `lnd_data_dir`     	         | `/data/lnd` 	                  | 	                                                                                |
+| `lnd_network`      	         | `mainnet`          	           | Valid values are: `testnet` and `simnet` 	                                       |
+| `lnd_alias`     	            | `yourbtc.link`       	         | 	                                                                                |
+| `lnd_log_level` 	            | `info`       	                 | 	                                                                                |
+| `lnd_listen`     	           | `127.0.0.1`     	              | 	                                                                                |
+| `lnd_tls_extra_domain`     	 | `{{ ansible_hostname }}`     	 | Default VM hostname	                                                             |
+| `lnd_bitcoind_local`     	   | `true`     	                   | `true` if this LND node will run in the same `bitcoind` host, `false` otherwise	 |
+
+Since by default the expected behavior is that LND node will run in the same instance where the Bitcoin
+node is running, you can use the following fields to point to the bitcoin data:
+
+| Name                   	     | Value           	                      |
+|------------------------------|----------------------------------------|
+| `lnd_bitcoind_dir`     	     | `/data/bitcoin` 	                      |
+| `lnd_bitcoind_config`      	 | `/etc/bitcoin/bitcoin.conf`          	 |
+
+If you prefer to use the RPC configuration from your LND node, use the following ones:
+
+| Name                   	           | Value           	    |
+|------------------------------------|----------------------|
+| `lnd_bitcoind_rpc_host`     	      | `127.0.0.1` 	        |
+| `lnd_bitcoind_rpc_user`      	     | `yourbtc`          	 |
+| `lnd_bitcoind_rpc_password`      	 | `yourbtc`          	 |
