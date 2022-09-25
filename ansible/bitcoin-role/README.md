@@ -59,10 +59,13 @@ bitcoin_pgp_builders_pub_key:
 
 To configure the Bitcoin node, you can use the following variables:
 
-| Name                   	 | Value           	 | Note                                             	 |
-|--------------------------|-------------------|----------------------------------------------------|
-| `bitcoin_data_dir`     	 | `/data/bitcoin` 	 | 	                                                  |
-| `bitcoin_network`      	 | `main`          	 | Valid values are: `regtest`, `signet` and `test` 	 |
-| `bitcoin_rpc_user`     	 | `yourbtc`       	 | 	                                                  |
-| `bitcoin_rpc_password` 	 | `yourbtc`       	 | 	                                                  |
-| `bitcoin_zmq_host`     	 | `127.0.0.1`     	 | 	                                                  |
+| Name                   	     | Value           	 | Note                                             	 |
+|------------------------------|-------------------|----------------------------------------------------|
+| `bitcoin_data_dir`     	     | `/data/bitcoin` 	 | 	                                                  |
+| `bitcoin_network`      	     | `main`          	 | Valid values are: `regtest`, `signet` and `test` 	 |
+| `bitcoin_rpc_user`     	     | `yourbtc`       	 | 	                                                  |
+| `bitcoin_rpc_password` 	     | `yourbtc`       	 | 	                                                  |
+| `bitcoin_zmq_host`     	     | `127.0.0.1`     	 | 	                                                  |
+| `bitcoin_bind`     	         | `127.0.0.1`     	 | 	                                                  |
+| `bitcoin_rpc_bind`     	     | `127.0.0.1`     	 | This is where to expose the RPC server	            |
+| `bitcoin_rpc_allow_ip`     	 | `127.0.0.1`     	 | This can be an IP or a range like `10.0.0.0/24`	   |
