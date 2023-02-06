@@ -15,7 +15,8 @@ $ cd examples/raspberry
 and execute this command:
 
 ```shell
-$ ansible-playbook -e @mainnet.yaml -i localhost, --connection=local playbook.yml
+$ ansible-galaxy install -r requirements.yml
+$ ansible-playbook -i localhost, --connection=local playbook.yml
 ```
 
 >If you don't want to execute this inside your Raspberry and want to use your local

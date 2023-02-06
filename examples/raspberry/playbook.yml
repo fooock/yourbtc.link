@@ -10,16 +10,27 @@
       tags:
         - init
 
-  tasks:
-    - include_vars: mainnet.yaml
-
-    - name: Install Bitcoin Core client
-      import_role:
-        name: ../../ansible/bitcoin-role
+  roles:
+    - role: fooock.bitcoind
+      vars:
+        bitcoin_arch: aarch64-linux-gnu
+        # Group to include the LND and Bitcoin user. We use admin here since
+        # the configuration is local and both services are going
+        # to share the same directories.
+        bitcoin_group: admin
       tags:
         - bitcoin
 
+  tasks:
     - name: Install Lighting Network Daemon
+      vars:
+        lnd_arch: linux-armv7
+        # Default bitcoind configuration file
+        lnd_bitcoind_config: /etc/bitcoin/{{ bitcoin_network }}/bitcoin.conf
+        # Group to include the LND and Bitcoin user. We use admin here since
+        # the configuration is local and both services are going
+        # to share the same directories.
+        lnd_group: admin
       import_role:
         name: ../../ansible/lnd-role
       tags:
