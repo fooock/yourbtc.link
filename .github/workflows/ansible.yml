@@ -15,7 +15,7 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: [ 3.8 ]
-        project: [ bitcoin-role, lnd-role ]
+        project: [ lnd-role ]
 
     steps:
       - uses: actions/checkout@v2
