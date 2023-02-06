@@ -10,4 +10,4 @@ following examples:
 ### Requirements
 
 In order to run the examples you need to have [Vagrant](https://www.vagrantup.com/) installed. For the
-Raspberry installed, you only need Ansible.
+Raspberry installer, you only need Ansible.

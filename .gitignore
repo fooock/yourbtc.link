@@ -5,3 +5,4 @@ ansible/venv
 */.vscode
 */node_modules
 */.angular
+examples/*/roles

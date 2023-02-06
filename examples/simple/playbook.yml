@@ -1,25 +1,36 @@
 - name: The yourbtc.link installer
   hosts: all
+  become: true
 
   pre_tasks:
     - name: Update system
-      become: true
       apt:
         update_cache: yes
         upgrade: dist
       tags:
         - init
 
-  tasks:
-    - include_vars: regtest.yaml
-
-    - name: Install Bitcoin Core client
-      import_role:
-        name: ../../ansible/bitcoin-role
+  roles:
+    - role: fooock.bitcoind
+      vars:
+        bitcoin_network: regtest
+        # Group to include the LND and Bitcoin user. We use admin here since
+        # the configuration is local and both services are going
+        # to share the same directories.
+        bitcoin_group: admin
       tags:
         - bitcoin
 
+  tasks:
     - name: Install Lighting Network Daemon
+      vars:
+        lnd_network: regtest
+        # Default bitcoind configuration file
+        lnd_bitcoind_config: /etc/bitcoin/{{ bitcoin_network }}/bitcoin.conf
+        # Group to include the LND and Bitcoin user. We use admin here since
+        # the configuration is local and both services are going
+        # to share the same directories.
+        lnd_group: admin
       import_role:
         name: ../../ansible/lnd-role
       tags:

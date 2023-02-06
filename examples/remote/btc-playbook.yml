@@ -10,10 +10,12 @@
       tags:
         - init
 
-  tasks:
-    - include_vars: regtest.yaml
-    - name: Install Bitcoin Core client
-      import_role:
-        name: ../../ansible/bitcoin-role
+  roles:
+    - role: fooock.bitcoind
+      vars:
+        bitcoin_network: regtest
+        bitcoin_zmq_host: 192.168.56.4
+        bitcoin_rpc_bind: 192.168.56.4
+        bitcoin_rpc_allow_ip: 192.168.56.5
       tags:
         - bitcoin

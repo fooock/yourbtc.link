@@ -1,6 +1,6 @@
 # Running services on the same host
 
->This example is to show how we can install `bitcoind` with `lnd` in the same host like
+>This example is to show how we can install `bitcoind` with `lnd` in the same host as
 > a Raspberry or a virtual machine.
 
 If you want to test this using Vagrant just execute the following command:
